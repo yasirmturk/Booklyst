@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/js
 /storage/*.key
 /vendor
 .env
@@ -10,3 +11,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+# ignore OS generated files
+.DS_Store
