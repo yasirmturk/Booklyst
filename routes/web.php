@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,10 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/admin', 'HomeController@index')->name('admin')->middleware('auth.admin');
 
 Route::get('/developer', 'DeveloperController@index')->name('developer')->middleware('auth');
+
+Route::get('reset', function (){
+    Artisan::call('route:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('config:cache');
+});
