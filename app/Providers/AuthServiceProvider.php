@@ -28,14 +28,18 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
+        // Passport::personalAccessClientId(config('passport.personal_access_client.id'));
+    
+        // Passport::personalAccessClientSecret(config('passport.personal_access_client.secret'));
+
         Passport::tokensCan([
             'place-orders' => 'Place orders',
             'check-status' => 'Check order status',
         ]);
 
-        Passport::enableImplicitGrant();
+        // Passport::enableImplicitGrant();
 
-        Passport::tokensExpireIn(now()->addDays(15));
+        Passport::tokensExpireIn(now()->addDays(1));
 
         Passport::refreshTokensExpireIn(now()->addDays(30));
 

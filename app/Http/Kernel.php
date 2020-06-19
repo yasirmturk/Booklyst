@@ -68,7 +68,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
         'cors' => \App\Http\Middleware\Cors::class,
-        'api.admin' => \App\Http\Middleware\AdminAuth::class,
-        'api.superAdmin' => \App\Http\Middleware\SuperAdminAuth::class,
+        'api.user' => \App\Http\Middleware\AuthUserApi::class,
+        'auth.admin' => \App\Http\Middleware\AuthAdmin::class,
+        'auth.superAdmin' => \App\Http\Middleware\AuthSuperAdmin::class,
     ];
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::get('/admin', 'HomeController@index')->name('admin')->middleware('auth');
+Route::get('/admin', 'HomeController@index')->name('admin')->middleware('auth.admin');
 
 Route::get('/developer', 'DeveloperController@index')->name('developer')->middleware('auth');

@@ -15,6 +15,10 @@
                     @endif
 
                     You are logged in!
+
+                    <!-- list of clients people have authorized to access our account -->
+                    <passport-authorized-clients></passport-authorized-clients>
+                    <hr />
                 </div>
             </div>
         </div>
