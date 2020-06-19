@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminAuth
+class AuthSuperAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,11 +17,10 @@ class AdminAuth
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('api')->check() && $request->user()->type >= 1) {
+        if (Auth::guard()->check() && $request->user()->type >= 2) {
             return $next($request);
         } else {
-            $message = ["message" => "Permission Denied"];
-            return response($message, 401);
+            return redirect(RouteServiceProvider::HOME);
         }
     }
 }

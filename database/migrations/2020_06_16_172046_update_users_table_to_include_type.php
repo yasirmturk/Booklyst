@@ -14,7 +14,7 @@ class UpdateUsersTableToIncludeType extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('type');
+            $table->integer('type')->unsigned()->default(0);
         });
     }
 

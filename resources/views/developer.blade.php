@@ -9,16 +9,16 @@
 
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
                     @endif
 
-                    You are logged in!
-
-                    <!-- list of clients people have authorized to access our account -->
-                    <passport-authorized-clients></passport-authorized-clients>
+                    <!-- let people make clients -->
+                    <passport-clients></passport-clients>
                     <hr />
+                    <!-- make it simple to generate a token right in the UI to play with -->
+                    <passport-personal-access-tokens></passport-personal-access-tokens>
                 </div>
             </div>
         </div>
