@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
 use App\SocialAccount;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -50,7 +49,11 @@ class LoginController extends Controller
      */
     public function redirectToProvider(Request $request, $provider)
     {
-        return Socialite::driver($provider)->redirect();
+        try {
+            return Socialite::driver($provider)->redirect();
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors(['feedback' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -61,41 +64,12 @@ class LoginController extends Controller
     public function handleProviderCallback(Request $request, $provider)
     {
         try {
-            $fbUser = Socialite::driver($provider)->user(); // $fbUser->token;
-            $user = $this->createOrGetUser($fbUser, $provider);
+            $pu = Socialite::driver($provider)->user(); // $fbUser->token;
+            $user = SocialAccount::createOrGetUser($provider, $pu->getId(), $pu->getEmail(), $pu->getName());
             auth()->login($user);
             return redirect()->intended(RouteServiceProvider::HOME);
         } catch (\Exception $e) {
-            return redirect('/login')->withErrors([$e->getMessage()]);
-        }
-    }
-
-    /**
-     * @return \App\User
-     */
-    private function createOrGetUser(ProviderUser $providerUser, $provider)
-    {
-        $account = SocialAccount::whereProvider($provider)
-            ->whereProviderUserId($providerUser->getId())
-            ->first();
-        if ($account) {
-            return $account->user;
-        } else {
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'facebook'
-            ]);
-            $user = User::whereEmail($providerUser->getEmail())->first();
-            if (!$user) {
-                $user = User::create([
-                    'email' => $providerUser->getEmail(),
-                    'name' => $providerUser->getName(),
-                    'password' => md5(rand(1, 10000)),
-                ]);
-            }
-            $account->user()->associate($user);
-            $account->save();
-            return $user;
+            return redirect('/login')->withErrors(['feedback' => $e->getMessage()]);
         }
     }
 }

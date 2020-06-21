@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Permissions;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -26,10 +27,27 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        $this->registerGates();
+
+        $this->preparePassport();
+    }
+
+    private function registerGates()
+    {
+        Gate::define('super-admin', function($user) {
+            return $user->hasRole(Permissions::ROLE_SUPER_ADMIN);
+        });
+
+        Gate::define('admin', function($user) {
+            return $user->hasRole(Permissions::ROLE_ADMIN);
+        });
+    }
+
+    private function preparePassport() {
         Passport::routes();
 
         // Passport::personalAccessClientId(config('passport.personal_access_client.id'));
-    
+
         // Passport::personalAccessClientSecret(config('passport.personal_access_client.secret'));
 
         Passport::tokensCan([

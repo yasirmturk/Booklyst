@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\SocialAccount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,6 @@ class ApiAuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|email|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'type' => 'integer',
         ]);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
@@ -34,7 +34,6 @@ class ApiAuthController extends Controller
         $password = $request->password;
         $request['password'] = Hash::make($password);
         $request['remember_token'] = Str::random(10);
-        $request['type'] = $request->type ?: 0;
         $user = User::create($request->toArray());
         // auth()->setUser($user);
         // $token = $user->createToken('Laravel Personal Access Client')->accessToken;
@@ -59,6 +58,27 @@ class ApiAuthController extends Controller
             'password' => $loginData['password']
         ]);
         return $login ? $this->token() : response(['message' => 'Invalid Credentials'], 422);
+    }
+
+    public function socialLogin(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255|email|unique:users',
+            'provider' => 'required|string|max:31',
+            'provider_user' => 'required|string|max:255',
+        ]);
+        if ($validator->fails()) {
+            return response(['errors' => $validator->errors()->all()], 422);
+        }
+        $user = SocialAccount::createOrGetUser($request->provider, $request->provider_user, $request->email, $request->name);
+        $request->merge([
+            'grant_type' => 'password',
+            'scope' => '',
+            'username' => $request->email,
+            // 'password' => $password,
+        ]);
+        return $this->token();
     }
 
     public function logout(Request $request)
