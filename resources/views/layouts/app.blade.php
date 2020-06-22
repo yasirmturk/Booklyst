@@ -73,7 +73,12 @@
 
         <main class="py-4">
             @if ($errors->any())
-            <h4>{{ $errors->first() }}</h4>
+            <!--@error('feedback')-->
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first() }}</strong>
+                <!-- <strong>{{ $message }}</strong> -->
+            </span>
+            <!-- @enderror -->
             @endif
             @yield('content')
         </main>
