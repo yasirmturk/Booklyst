@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use App\User;
 use App\SocialAccount;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\AbstractProvider;
 
 class ApiAuthController extends Controller
 {
@@ -60,23 +63,25 @@ class ApiAuthController extends Controller
         return $login ? $this->token() : response(['message' => 'Invalid Credentials'], 422);
     }
 
-    public function socialLogin(Request $request)
+    public function loginProvider(Request $request, $provider)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255|email|unique:users',
-            'provider' => 'required|string|max:31',
-            'provider_user' => 'required|string|max:255',
+            'access_token' => 'required|string',
         ]);
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
-        $user = SocialAccount::createOrGetUser($request->provider, $request->provider_user, $request->email, $request->name);
+
+        /** @var AbstractProvider $driver */
+        $driver = Socialite::driver($provider);
+        $pu = $driver->userFromToken($request->access_token);
+        $password = str_random(10);
+        Log::debug("Generating new password: $password");
+        $user = SocialAccount::createOrGetUser($provider, $pu, $password);
         $request->merge([
             'grant_type' => 'password',
-            'scope' => '',
-            'username' => $request->email,
-            // 'password' => $password,
+            'username' => $pu->getEmail(),
+            'password' => $password,
         ]);
         return $this->token();
     }

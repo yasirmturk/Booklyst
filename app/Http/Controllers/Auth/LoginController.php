@@ -8,7 +8,7 @@ use App\SocialAccount;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Contracts\User as ProviderUser;
+use Laravel\Socialite\Two\AbstractProvider;
 
 class LoginController extends Controller
 {
@@ -64,8 +64,11 @@ class LoginController extends Controller
     public function handleProviderCallback(Request $request, $provider)
     {
         try {
-            $pu = Socialite::driver($provider)->user(); // $fbUser->token;
-            $user = SocialAccount::createOrGetUser($provider, $pu->getId(), $pu->getEmail(), $pu->getName());
+            /** @var AbstractProvider $driver */
+            $driver = Socialite::driver($provider);
+            $pu = $driver->user(); // $pu->token;
+            $password = str_random(10);
+            $user = SocialAccount::createOrGetUser($provider, $pu, $password);
             auth()->login($user);
             return redirect()->intended(RouteServiceProvider::HOME);
         } catch (\Exception $e) {

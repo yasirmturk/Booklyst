@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Contracts\User as ProviderUser;
 
 class SocialAccount extends Model
 {
@@ -25,24 +27,28 @@ class SocialAccount extends Model
     /**
      * @return \App\User
      */
-    public static function createOrGetUser($provider, $providerUser, $email, $name)
+    public static function createOrGetUser($provider, ProviderUser $providerUser, $password)
     {
+        $userId = $providerUser->getId();
         $account = SocialAccount::whereProvider($provider)
-            ->whereProviderUserId($providerUser)
+            ->whereProviderUserId($userId)
             ->first();
         if ($account) {
-            return $account->user;
+            $user = $account->user;
+            $user->password = Hash::make($password);
+            $user->save();
+            return $user;
         } else {
             $account = new SocialAccount([
-                'provider_user_id' => $providerUser,
+                'provider_user_id' => $userId,
                 'provider' => $provider
             ]);
-            $user = User::whereEmail($email)->first();
+            $user = User::whereEmail($providerUser->getEmail())->first();
             if (!$user) {
                 $user = User::create([
-                    'email' => $email,
-                    'name' => $name,
-                    'password' => md5(rand(1, 10000)),
+                    'email' => $providerUser->getEmail(),
+                    'name' => $providerUser->getName(),
+                    'password' => Hash::make($password),
                 ]);
             }
             $account->user()->associate($user);
