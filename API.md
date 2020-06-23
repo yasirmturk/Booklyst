@@ -50,13 +50,18 @@ Optional:
 -- `grant_type` => 'provider'
 -- `scope`
 
+### Forgot password
+Send password reset link
+
+Endpoint: `POST /api/password/reset`
+
+Params:
+-- `email`
+
 ### Logout
 Revokes the token
 
 Endpoint: `POST /api/logout`
-
-### Forgot password
-
 
 ### Sign up as a Provider
 
