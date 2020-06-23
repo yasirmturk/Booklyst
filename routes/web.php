@@ -33,7 +33,6 @@ Route::get('developer', 'DeveloperController@index')->name('developer')->middlew
 Route::get('reset', function (){
     Artisan::call('route:clear');
     Artisan::call('cache:clear');
-    Artisan::call('config:clear');
     Artisan::call('config:cache');
     Artisan::call('view:cache');
 });

@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'api.user' => \App\Http\Middleware\AuthUserApi::class,
         // 'auth.admin' => \App\Http\Middleware\AuthAdmin::class,
         // 'auth.superAdmin' => \App\Http\Middleware\AuthSuperAdmin::class,
+        'api.auth' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     ];
 }
