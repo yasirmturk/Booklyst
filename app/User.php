@@ -48,9 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $roles = $this->getRoles();
         $roles[] = $role;
-
-        $roles = array_unique($roles);
-        $this->setRoles($roles);
+        $this->setRoles(array_unique($roles));
 
         return $this;
     }

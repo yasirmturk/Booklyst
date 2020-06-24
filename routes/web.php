@@ -19,7 +19,7 @@ Route::get('', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
@@ -30,7 +30,7 @@ Route::get('admin', 'HomeController@index')->name('admin')->middleware('can:admi
 
 Route::get('developer', 'DeveloperController@index')->name('developer')->middleware('auth');
 
-Route::get('reset', function (){
+Route::get('reset', function () {
     Artisan::call('route:clear');
     Artisan::call('cache:clear');
     Artisan::call('config:cache');

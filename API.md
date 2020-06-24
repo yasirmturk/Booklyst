@@ -19,7 +19,7 @@ Params:
 
 Optional:
 -- `grant_type`
--- `scope`
+-- `scope` => '*'
 
 ### Login
 Authenticate the user and returns token along with user object.
@@ -30,7 +30,7 @@ Params:
 -- `client_id`
 -- `client_secret`
 -- `grant_type` => 'password'
--- `scope`
+-- `scope` => '*'
 -- `username`
 -- `password`
 
@@ -40,15 +40,17 @@ Authenticate the user via social token and returns token along with user object.
 Current Providers: `facebook`, `google`
 
 Endpoint: `POST /api/login/{provider}`
+Endpoint: `POST /api/login/social`
 
 Params:
 -- `client_id`
 -- `client_secret`
 -- `access_token` => Token returned by OAuth Social login provider
+-- `provider` => Provider
 
 Optional:
--- `grant_type` => 'provider'
--- `scope`
+-- `grant_type` => 'social'
+-- `scope` => '*'
 
 ### Forgot password
 Send password reset link
@@ -73,7 +75,7 @@ OAuth Clients > Create New Client
 
 ## Token Flow
 
-Endpoint: `POST /oauth/token`
+Endpoint: `POST oauth/token`
 
 `grant_type` > `authorization_code`
 
