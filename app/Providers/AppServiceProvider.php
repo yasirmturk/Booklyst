@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\SocialAccountRepository;
-use App\SocialUserRepositoryInterface;
+use App\SocialAccountRepositoryInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array
      */
     public $bindings = [
-        SocialUserRepositoryInterface::class => SocialAccountRepository::class,
+        SocialAccountRepositoryInterface::class => SocialAccountRepository::class,
     ];
 
     /**

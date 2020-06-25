@@ -14,7 +14,7 @@ class UpdateUsersTableToIncludeRoles extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('roles')->nullable();
+            $table->text('roles')->default('[]');
         });
     }
 

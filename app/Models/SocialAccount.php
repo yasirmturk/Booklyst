@@ -1,21 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Business extends Model
+class SocialAccount extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'type', 'area'];
+    protected $fillable = ['user_id', 'provider_user_id', 'provider'];
 
     /**
      * Get associated User.
-     * @return \App\User
+     * @return \App\Models\User
      */
     public function user()
     {

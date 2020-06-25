@@ -68,6 +68,10 @@ class ApiAuthController extends RegisterController
 
     public function loginSocial(Request $request)
     {
+        $request->merge([
+            'grant_type' => 'social',
+            'scope' => '*',
+        ]);
         return $this->token();
     }
 
@@ -78,9 +82,6 @@ class ApiAuthController extends RegisterController
         // return response(['token' => $token]);
         $request->merge([
             'provider' => $provider,
-            'grant_type' => 'social',
-            // 'username' => $pu->getEmail(),
-            // 'password' => $password,
         ]);
         return $this->token();
     }

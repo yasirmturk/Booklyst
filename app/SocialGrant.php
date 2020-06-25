@@ -19,22 +19,8 @@ use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\PasswordGrant;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
-use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use League\OAuth2\Server\RequestEvent;
 use Psr\Http\Message\ServerRequestInterface;
-
-interface SocialUserRepositoryInterface extends UserRepositoryInterface
-{
-    /**
-     * Resolve user by provider credentials.
-     *
-     * @param string $provider
-     * @param string $accessToken
-     *
-     * @return Authenticatable|null
-     */
-    public function userByProviderCredentials(string $provider, string $accessToken): ?Authenticatable;
-}
 
 /**
  * Social grant class.
@@ -42,11 +28,11 @@ interface SocialUserRepositoryInterface extends UserRepositoryInterface
 class SocialGrant extends PasswordGrant
 {
     /**
-     * @param SocialUserRepositoryInterface         $userRepository
+     * @param SocialAccountRepositoryInterface         $userRepository
      * @param RefreshTokenRepositoryInterface $refreshTokenRepository
      */
     public function __construct(
-        SocialUserRepositoryInterface $userRepository,
+        SocialAccountRepositoryInterface $userRepository,
         RefreshTokenRepositoryInterface $refreshTokenRepository
     ) {
         parent::__construct($userRepository, $refreshTokenRepository);
@@ -73,7 +59,11 @@ class SocialGrant extends PasswordGrant
             throw OAuthServerException::invalidRequest('provider');
         }
 
-        $user = app()->make(SocialUserRepositoryInterface::class)->userByProviderCredentials($provider, $accessToken);
+        /** @var SocialAccountRepositoryInterface $accountRepository */
+        $accountRepository = $this->userRepository;
+        $user = $accountRepository->userByProviderCredentials($provider, $accessToken, function ($user) use ($accountRepository, $request) {
+            $accountRepository->registered($request, $user);
+        });
         if ($user instanceof Authenticatable) {
             auth()->setUser($user);
             $user = new UserEntity($user->getAuthIdentifier());
