@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OAuth Social grant.
  *
@@ -9,25 +10,47 @@
  * @link        https://github.com/yasirmturk/social-grant
  */
 
-namespace App\Http\Controllers\Auth;
+namespace App;
 
-use App\SocialAccount;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Laravel\Passport\Bridge\User as UserEntity;
-use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Two\AbstractProvider;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Grant\PasswordGrant;
+use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
+use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 use League\OAuth2\Server\RequestEvent;
 use Psr\Http\Message\ServerRequestInterface;
+
+interface SocialUserRepositoryInterface extends UserRepositoryInterface
+{
+    /**
+     * Resolve user by provider credentials.
+     *
+     * @param string $provider
+     * @param string $accessToken
+     *
+     * @return Authenticatable|null
+     */
+    public function userByProviderCredentials(string $provider, string $accessToken): ?Authenticatable;
+}
 
 /**
  * Social grant class.
  */
 class SocialGrant extends PasswordGrant
 {
+    /**
+     * @param SocialUserRepositoryInterface         $userRepository
+     * @param RefreshTokenRepositoryInterface $refreshTokenRepository
+     */
+    public function __construct(
+        SocialUserRepositoryInterface $userRepository,
+        RefreshTokenRepositoryInterface $refreshTokenRepository
+    ) {
+        parent::__construct($userRepository, $refreshTokenRepository);
+    }
     /**
      * @param ServerRequestInterface $request
      * @param ClientEntityInterface  $client
@@ -38,9 +61,9 @@ class SocialGrant extends PasswordGrant
      */
     protected function validateUser(ServerRequestInterface $request, ClientEntityInterface $client)
     {
-        $access_token = $this->getRequestParameter('access_token', $request);
+        $accessToken = $this->getRequestParameter('access_token', $request);
 
-        if (\is_null($access_token)) {
+        if (\is_null($accessToken)) {
             throw OAuthServerException::invalidRequest('access_token');
         }
 
@@ -50,12 +73,9 @@ class SocialGrant extends PasswordGrant
             throw OAuthServerException::invalidRequest('provider');
         }
 
-        /** @var AbstractProvider $driver */
-        $driver = Socialite::driver($provider);
-        $pu = $driver->userFromToken($access_token);
-        $user = SocialAccount::createOrGetUser($provider, $pu);
-
+        $user = app()->make(SocialUserRepositoryInterface::class)->userByProviderCredentials($provider, $accessToken);
         if ($user instanceof Authenticatable) {
+            auth()->setUser($user);
             $user = new UserEntity($user->getAuthIdentifier());
         }
 

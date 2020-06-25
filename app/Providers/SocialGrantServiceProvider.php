@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\Auth\SocialGrant;
+use App\SocialGrant;
+use App\SocialUserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Bridge\RefreshTokenRepository;
-use Laravel\Passport\Bridge\UserRepository;
 use Laravel\Passport\Passport;
 use League\OAuth2\Server\AuthorizationServer;
 
@@ -18,10 +18,9 @@ class SocialGrantServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // $this->app->singleton(AuthorizationServer::class, function (AuthorizationServer $server) {
         $this->app->resolving(AuthorizationServer::class, function (AuthorizationServer $server) {
-            $server->enableGrantType(
-                $this->makeGrant(), Passport::tokensExpireIn()
-            );
+            $server->enableGrantType($this->makeGrant(), Passport::tokensExpireIn());
         });
     }
 
@@ -36,16 +35,16 @@ class SocialGrantServiceProvider extends ServiceProvider
             // migrations
         }
     }
-    
+
     protected function makeGrant()
     {
         $grant = new SocialGrant(
-            $this->app->make(UserRepository::class),
+            $this->app->make(SocialUserRepositoryInterface::class),
             $this->app->make(RefreshTokenRepository::class)
         );
 
         $grant->setRefreshTokenTTL(Passport::refreshTokensExpireIn());
-        
+
         return $grant;
     }
 }

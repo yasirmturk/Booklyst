@@ -2,9 +2,33 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\Bridge\UserRepository;
 use Laravel\Socialite\Contracts\User as SocialUser;
+use Laravel\Socialite\Facades\Socialite;
+
+class SocialAccountRepository extends UserRepository implements SocialUserRepositoryInterface
+{
+    /**
+     * Resolve user by provider credentials.
+     *
+     * @param string $provider
+     * @param string $accessToken
+     *
+     * @return Authenticatable|null
+     */
+    public function userByProviderCredentials(string $provider, string $accessToken): ?Authenticatable
+    {
+        // Return the user that corresponds to provided credentials.
+        // If the credentials are invalid, then return NULL.
+        /** @var AbstractProvider $driver */
+        $driver = Socialite::driver($provider);
+        $pu = $driver->userFromToken($accessToken);
+        return SocialAccount::createOrGetUser($provider, $pu);
+    }
+}
 
 class SocialAccount extends Model
 {

@@ -4,14 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
-use App\User;
-use App\SocialAccount;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
-use Laravel\Socialite\Facades\Socialite;
-use Laravel\Socialite\Two\AbstractProvider;
 
 class ApiAuthController extends RegisterController
 {
@@ -79,19 +73,6 @@ class ApiAuthController extends RegisterController
 
     public function loginProvider(Request $request, $provider)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'access_token' => 'required|string',
-        // ]);
-        // if ($validator->fails()) {
-        //     return response(['errors' => $validator->errors()->all()], 422);
-        // }
-
-        // /** @var AbstractProvider $driver */
-        // $driver = Socialite::driver($provider);
-        // $pu = $driver->userFromToken($request->access_token);
-        // $password = str_random(10);
-        // Log::debug("Generating new password: $password");
-        // $user = SocialAccount::createOrGetUser($provider, $pu, $password);
         // auth()->setUser($user);
         // $token = $user->createToken('Turkly PAC')->accessToken;
         // return response(['token' => $token]);

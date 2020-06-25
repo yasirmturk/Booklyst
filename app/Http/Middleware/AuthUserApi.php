@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\User;
 use Closure;
 
 class AuthUserApi
@@ -20,7 +19,7 @@ class AuthUserApi
         if ($response->isOk()) {
             $response->setContent([
                 'token' => json_decode($response->getContent()),
-                'user' => User::where('email', $request->username)->first()
+                'user' => $request->user()
             ]);
         }
         return $response;
