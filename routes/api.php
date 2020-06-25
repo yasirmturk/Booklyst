@@ -14,18 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware(['cors', 'json.response'])->group(function () {
 
-Route::group(['middleware' => ['cors', 'json.response']], function () {
     // public routes
-    Route::post('/login/{provider}', 'Auth\ApiAuthController@loginProvider')->name('login.provider.api')->middleware('api.user');
-    Route::post('/login', 'Auth\ApiAuthController@login')->name('login.api')->middleware('api.user');
-    Route::post('/register','Auth\ApiAuthController@register')->name('register.api')->middleware('api.user');
-    Route::post('/password/reset', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('forgot.api');
-    Route::post('/logout', 'Auth\ApiAuthController@logout')->name('logout.api')->middleware('api.auth');
+    Route::namespace('Auth')->group(function () {
 
+        // auth routes
+        Route::middleware('api.user')->group(function () {
+            Route::post('login/social', 'ApiAuthController@loginSocial')->name('login.social.api');
+            Route::post('login/{provider}', 'ApiAuthController@loginProvider')->name('login.provider.api');
+            Route::post('login', 'ApiAuthController@login')->name('login.api');
+            Route::post('register', 'ApiAuthController@register')->name('register.api');
+        });
+
+        // guest routes
+        Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot.api');
+        Route::post('logout', 'ApiAuthController@logout')->name('logout.api')->middleware('api.auth');
+    });
+
+    // protected routes
     Route::middleware('auth:api')->group(function () {
         Route::get('/user', function (Request $request) {
             return $request->user();

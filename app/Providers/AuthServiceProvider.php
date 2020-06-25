@@ -44,7 +44,7 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     private function preparePassport() {
-        Passport::routes();
+        Passport::routes();//null, ['prefix' => 'api/oauth']
 
         // Passport::personalAccessClientId(config('passport.personal_access_client.id'));
 

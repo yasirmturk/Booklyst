@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Permissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -40,6 +41,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'roles' => 'array',
     ];
 
+    protected static function boot()
+    {
+        parent::boot(); //because we want the parent boot to be run as well
+        static::creating(function ($model) {
+            $model->addRole(Permissions::ROLE_CUSTOMER);
+        });
+    }
+
     /**
      * @param string $role
      * @return $this
@@ -48,9 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $roles = $this->getRoles();
         $roles[] = $role;
-
-        $roles = array_unique($roles);
-        $this->setRoles($roles);
+        $this->setRoles(array_unique($roles));
 
         return $this;
     }

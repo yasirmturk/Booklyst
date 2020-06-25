@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateUsersTableToIncludeRoles extends Migration
+class CreateBusinessesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class UpdateUsersTableToIncludeRoles extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->text('roles')->default('[]');
+        Schema::create('businesses', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->string('type');
+            $table->string('area');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class UpdateUsersTableToIncludeRoles extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropIfExists('roles');
-        });
+        Schema::dropIfExists('businesses');
     }
 }

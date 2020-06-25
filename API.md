@@ -16,10 +16,13 @@ Params:
 -- `email`
 -- `password`
 -- `password_confirmation`
+-- `roles[]`
+
+Current Roles: `ROLE_PROVIDER`
 
 Optional:
--- `grant_type`
--- `scope`
+-- `grant_type` => 'password'
+-- `scope` => '*'
 
 ### Login
 Authenticate the user and returns token along with user object.
@@ -30,14 +33,27 @@ Params:
 -- `client_id`
 -- `client_secret`
 -- `grant_type` => 'password'
--- `scope`
+-- `scope` => '*'
 -- `username`
 -- `password`
 
 ### Social Login
 Authenticate the user via social token and returns token along with user object.
 
+Endpoint: `POST /api/login/social`
+
+Params:
+-- `client_id`
+-- `client_secret`
+-- `access_token` => Token returned by OAuth Social login provider
+-- `provider` => Provider
+-- `roles[]`
+
 Current Providers: `facebook`, `google`
+
+Optional:
+-- `grant_type` => 'social'
+-- `scope` => '*'
 
 Endpoint: `POST /api/login/{provider}`
 
@@ -45,10 +61,12 @@ Params:
 -- `client_id`
 -- `client_secret`
 -- `access_token` => Token returned by OAuth Social login provider
+-- `grant_type` => 'social'
+-- `scope` => '*'
+-- `roles[]`
 
 Optional:
--- `grant_type` => 'provider'
--- `scope`
+-- `provider` => Provider
 
 ### Forgot password
 Send password reset link
@@ -73,7 +91,7 @@ OAuth Clients > Create New Client
 
 ## Token Flow
 
-Endpoint: `POST /oauth/token`
+Endpoint: `POST oauth/token`
 
 `grant_type` > `authorization_code`
 
