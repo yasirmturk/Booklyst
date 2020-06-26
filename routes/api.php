@@ -29,13 +29,16 @@ Route::middleware(['cors', 'json.response'])->group(function () {
 
         // guest routes
         Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot.api');
-        Route::post('logout', 'ApiAuthController@logout')->name('logout.api')->middleware('api.auth');
     });
 
     // protected routes
     Route::middleware('auth:api')->group(function () {
-        Route::get('/user', function (Request $request) {
+        Route::post('logout', 'ApiAuthController@logout')->name('logout.api');
+        Route::get('user', function (Request $request) {
             return $request->user();
         });
+        Route::post('businesses', 'BusinessController@register')->name('api.business.register');
+        Route::get('businesses/{id}', 'BusinessController@find')->name('api.business.find');
+        Route::put('businesses/{id}', 'BusinessController@update')->name('api.business.update');
     });
 });

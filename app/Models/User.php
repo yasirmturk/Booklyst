@@ -50,6 +50,22 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the social accounts.
+     */
+    public function socialAccounts()
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+
+    /**
+     * Get the business accounts.
+     */
+    public function businesses()
+    {
+        return $this->belongsToMany(Business::class)->withTimestamps();
+    }
+
+    /**
      * @param string $role
      * @return $this
      */

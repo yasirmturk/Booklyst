@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         $this->seedOauthClients();
+
+        $this->call(BusinessSeeder::class);
     }
 
     private function seedOauthClients()
