@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbc7a884111dd0066332b585f6c9ba7d",
+    "content-hash": "1ffee836d2294168fde609c6eea8fe9d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -486,6 +486,59 @@
             "time": "2020-06-16T20:11:17+00:00"
         },
         {
+            "name": "felixkiss/uniquewith-validator",
+            "version": "3.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/felixkiss/uniquewith-validator.git",
+                "reference": "7ce4ff83c9003718e8febe1d4670eb869a720c5c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/felixkiss/uniquewith-validator/zipball/7ce4ff83c9003718e8febe1d4670eb869a720c5c",
+                "reference": "7ce4ff83c9003718e8febe1d4670eb869a720c5c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5|^6.0|^7.0",
+                "illuminate/validation": "^5.5|^6.0|^7.0",
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "bossa/phpspec2-expect": "^3.0",
+                "phpspec/phpspec": "^5.0|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Felixkiss\\UniqueWithValidator\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Felixkiss\\UniqueWithValidator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Felix Kiss",
+                    "email": "felix@felixkiss.com"
+                }
+            ],
+            "description": "Custom Laravel Validator for combined unique indexes",
+            "homepage": "https://github.com/felixkiss/uniquewith-validator",
+            "keywords": [
+                "laravel"
+            ],
+            "time": "2020-03-10T21:45:55+00:00"
+        },
+        {
             "name": "fideloper/proxy",
             "version": "4.3.0",
             "source": {
@@ -853,6 +906,55 @@
                 "url"
             ],
             "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "jackpopp/geodistance",
+            "version": "1.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jackpopp/geodistance.git",
+                "reference": "cc8d47911e135528898676060d5235571186b946"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jackpopp/geodistance/zipball/cc8d47911e135528898676060d5235571186b946",
+                "reference": "cc8d47911e135528898676060d5235571186b946",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "*"
+            },
+            "require-dev": {
+                "illuminate/database": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jackpopp\\GeoDistance\\": "src/Jackpopp/GeoDistance"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jack Hannigan Popp",
+                    "email": "jack@jackpopp.com"
+                }
+            ],
+            "description": "Search for locations within a radius using latitude and longitude values with your eloquent models.",
+            "keywords": [
+                "distance",
+                "kilometers",
+                "latitude",
+                "longitude",
+                "miles",
+                "radius",
+                "search",
+                "searching"
+            ],
+            "time": "2015-07-07T10:58:38+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",
@@ -3100,6 +3202,362 @@
                 }
             ],
             "time": "2020-03-29T20:13:32+00:00"
+        },
+        {
+            "name": "rinvex/countries",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yasirmturk/countries.git",
+                "reference": "029e20261ca984e4cf468ede2091787b6a5d318e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yasirmturk/countries/zipball/029e20261ca984e4cf468ede2091787b6a5d318e",
+                "reference": "029e20261ca984e4cf468ede2091787b6a5d318e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3.0"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.27.0",
+                "phpunit/phpunit": "^9.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rinvex\\Country\\Providers\\CountryServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Rinvex\\Country\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rinvex\\Country\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rinvex LLC",
+                    "homepage": "https://rinvex.com",
+                    "email": "help@rinvex.com"
+                },
+                {
+                    "name": "Abdelrahman Omran",
+                    "homepage": "https://omranic.com",
+                    "email": "me@omranic.com",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "The Generous PHP Community",
+                    "homepage": "https://github.com/rinvex/countries/contributors"
+                }
+            ],
+            "description": "Rinvex Countries is a simple and lightweight package for retrieving country details with flexibility. A whole bunch of data including name, demonym, capital, iso codes, dialling codes, geo data, currencies, flags, emoji, and other attributes for all 250 countries worldwide at your fingertips.",
+            "homepage": "https://rinvex.com",
+            "keywords": [
+                "countries",
+                "country",
+                "currencies",
+                "demonym",
+                "dialling",
+                "emoji",
+                "flags",
+                "flexible",
+                "geographic",
+                "languages",
+                "rinvex",
+                "simple",
+                "svg"
+            ],
+            "support": {
+                "email": "help@rinvex.com",
+                "issues": "https://github.com/rinvex/countries/issues",
+                "source": "https://github.com/rinvex/countries",
+                "docs": "https://github.com/rinvex/countries/blob/master/README.md"
+            },
+            "time": "2020-06-28T10:51:37+00:00"
+        },
+        {
+            "name": "rinvex/laravel-addresses",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yasirmturk/laravel-addresses.git",
+                "reference": "ab1423ac1fb52e0404967728b38737bda76272e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yasirmturk/laravel-addresses/zipball/ab1423ac1fb52e0404967728b38737bda76272e6",
+                "reference": "ab1423ac1fb52e0404967728b38737bda76272e6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^7.0.0",
+                "illuminate/database": "^7.0.0",
+                "illuminate/support": "^7.0.0",
+                "jackpopp/geodistance": "^1.2.0",
+                "php": "^7.3.0",
+                "rinvex/countries": "dev-master",
+                "rinvex/laravel-support": "dev-master"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.27.0",
+                "illuminate/container": "^7.0.0",
+                "phpunit/phpunit": "^9.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rinvex\\Addresses\\Providers\\AddressesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "database"
+                ],
+                "psr-4": {
+                    "Rinvex\\Addresses\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rinvex\\Addresses\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rinvex LLC",
+                    "homepage": "https://rinvex.com",
+                    "email": "help@rinvex.com"
+                },
+                {
+                    "name": "Abdelrahman Omran",
+                    "homepage": "https://omranic.com",
+                    "email": "me@omranic.com",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "The Generous Laravel Community",
+                    "homepage": "https://github.com/rinvex/laravel-addresses/contributors"
+                }
+            ],
+            "description": "Rinvex Addresses is a polymorphic Laravel package, for addressbook management. You can add addresses to any eloquent model with ease.",
+            "homepage": "https://rinvex.com",
+            "keywords": [
+                "address",
+                "addressable",
+                "billing",
+                "city",
+                "country",
+                "eloquent",
+                "laravel",
+                "latitude",
+                "longitude",
+                "model",
+                "polymorphic",
+                "postal",
+                "primary",
+                "rinvex",
+                "shipping",
+                "state",
+                "street"
+            ],
+            "support": {
+                "email": "help@rinvex.com",
+                "issues": "https://github.com/rinvex/laravel-addresses/issues",
+                "source": "https://github.com/rinvex/laravel-addresses",
+                "docs": "https://github.com/rinvex/laravel-addresses/blob/master/README.md"
+            },
+            "time": "2020-06-28T11:07:15+00:00"
+        },
+        {
+            "name": "rinvex/laravel-support",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yasirmturk/laravel-support.git",
+                "reference": "62ab459ae71aef958b43de2c5f930136c88dbffa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yasirmturk/laravel-support/zipball/62ab459ae71aef958b43de2c5f930136c88dbffa",
+                "reference": "62ab459ae71aef958b43de2c5f930136c88dbffa",
+                "shasum": ""
+            },
+            "require": {
+                "felixkiss/uniquewith-validator": "^3.4.0",
+                "illuminate/auth": "^7.0.0",
+                "illuminate/bus": "^7.0.0",
+                "illuminate/contracts": "^7.0.0",
+                "illuminate/http": "^7.0.0",
+                "illuminate/routing": "^7.0.0",
+                "illuminate/support": "^7.0.0",
+                "illuminate/validation": "^7.0.0",
+                "php": "^7.3.0",
+                "spatie/laravel-schemaless-attributes": "^1.7.0",
+                "watson/validating": "^5.0.0"
+            },
+            "require-dev": {
+                "codedungeon/phpunit-result-printer": "^0.27.0",
+                "phpunit/phpunit": "^9.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rinvex\\Support\\Providers\\SupportServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Support/helpers.php"
+                ],
+                "psr-4": {
+                    "Rinvex\\Support\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rinvex\\Support\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rinvex LLC",
+                    "homepage": "https://rinvex.com",
+                    "email": "help@rinvex.com"
+                },
+                {
+                    "name": "Abdelrahman Omran",
+                    "homepage": "https://omranic.com",
+                    "email": "me@omranic.com",
+                    "role": "Project Lead"
+                },
+                {
+                    "name": "The Generous Laravel Community",
+                    "homepage": "https://github.com/rinvex/laravel-support/contributors"
+                }
+            ],
+            "description": "Rinvex common support helpers, contracts, and traits required by various Rinvex packages. Validator functionality, and basic controller included out-of-the-box.",
+            "homepage": "https://rinvex.com/marketplace/rinvex-support/",
+            "keywords": [
+                "contract",
+                "helper",
+                "laravel",
+                "mimetype",
+                "rinvex",
+                "support",
+                "timezones",
+                "trait",
+                "validator"
+            ],
+            "support": {
+                "email": "help@rinvex.com",
+                "issues": "https://github.com/rinvex/laravel-support/issues",
+                "source": "https://github.com/rinvex/laravel-support",
+                "docs": "https://github.com/rinvex/laravel-support/blob/master/README.md"
+            },
+            "time": "2020-06-28T10:57:06+00:00"
+        },
+        {
+            "name": "spatie/laravel-schemaless-attributes",
+            "version": "1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-schemaless-attributes.git",
+                "reference": "2ad106215d7d4403e50cac0ca9aaea0bf91506c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-schemaless-attributes/zipball/2ad106215d7d4403e50cac0ca9aaea0bf91506c2",
+                "reference": "2ad106215d7d4403e50cac0ca9aaea0bf91506c2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.6|^6.0|^7.0",
+                "illuminate/support": "^5.6|^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "orchestra/testbench": "^3.6|^4.0|^5.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\SchemalessAttributes\\SchemalessAttributesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\SchemalessAttributes\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add schemaless attributes to Eloquent models",
+            "homepage": "https://github.com/spatie/laravel-schemaless-attributes",
+            "keywords": [
+                "laravel-schemaless-attributes",
+                "spatie"
+            ],
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-03-18T19:08:09+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5420,6 +5878,56 @@
                 }
             ],
             "time": "2020-06-15T23:49:30+00:00"
+        },
+        {
+            "name": "watson/validating",
+            "version": "5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dwightwatson/validating.git",
+                "reference": "861861a7c916d3e8bc4863d18b716cb0784a1a61"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dwightwatson/validating/zipball/861861a7c916d3e8bc4863d18b716cb0784a1a61",
+                "reference": "861861a7c916d3e8bc4863d18b716cb0784a1a61",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "~7.0",
+                "illuminate/database": "~7.0",
+                "illuminate/events": "~7.0",
+                "illuminate/support": "~7.0",
+                "illuminate/validation": "~7.0",
+                "php": "^7.2.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.1",
+                "phpunit/phpunit": "~8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Watson\\Validating\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dwight Watson",
+                    "email": "dwight@studiousapp.com"
+                }
+            ],
+            "description": "Eloquent model validating trait.",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "validation"
+            ],
+            "time": "2020-03-06T10:53:12+00:00"
         }
     ],
     "packages-dev": [
@@ -7467,7 +7975,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rinvex/laravel-addresses": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

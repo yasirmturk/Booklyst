@@ -14,28 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['cors', 'json.response'])->group(function () {
+// auth routes
+Route::middleware('api.user')->group(function () {
+    Route::post('login/social', 'AuthController@loginSocial')->name('login.social.api');
+    Route::post('login/{provider}', 'AuthController@loginProvider')->name('login.provider.api');
+    Route::post('login', 'AuthController@login')->name('login.api');
+    Route::post('register', 'AuthController@register')->name('register.api');
+});
 
-    // public routes
-    Route::namespace('Auth')->group(function () {
+// guest routes
+Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot.api');
 
-        // auth routes
-        Route::middleware('api.user')->group(function () {
-            Route::post('login/social', 'ApiAuthController@loginSocial')->name('login.social.api');
-            Route::post('login/{provider}', 'ApiAuthController@loginProvider')->name('login.provider.api');
-            Route::post('login', 'ApiAuthController@login')->name('login.api');
-            Route::post('register', 'ApiAuthController@register')->name('register.api');
-        });
 
-        // guest routes
-        Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot.api');
-        Route::post('logout', 'ApiAuthController@logout')->name('logout.api')->middleware('api.auth');
+// protected routes
+Route::middleware('auth:api')->group(function () {
+    Route::post('logout', 'AuthController@logout')->name('logout.api');
+    Route::get('user', function (Request $request) {
+        return $request->user();
     });
-
-    // protected routes
-    Route::middleware('auth:api')->group(function () {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
-    });
+    Route::post('businesses', 'BusinessController@register')->name('api.business.register');
+    Route::get('businesses/{id}', 'BusinessController@find')->name('api.business.find');
+    Route::put('businesses/{id}', 'BusinessController@update')->name('api.business.update');
 });

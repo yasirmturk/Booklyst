@@ -1,25 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Route;
 
-class ApiAuthController extends RegisterController
+class AuthController extends RegisterController
 {
-
     use AuthenticatesUsers {
         login as protected authenticate;
-    }
-
-    /**
-     * ApiAuthController constructor.
-     */
-    public function __construct()
-    {
-        //
     }
 
     /**

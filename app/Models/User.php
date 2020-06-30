@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Notifications\MailResetPassword;
+use App\Notifications\MailVerifyEmail;
 use App\Permissions;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -47,6 +48,43 @@ class User extends Authenticatable implements MustVerifyEmail
         static::creating(function ($model) {
             $model->addRole(Permissions::ROLE_CUSTOMER);
         });
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new MailVerifyEmail);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new MailResetPassword($token));
+    }
+
+    /**
+     * Get the social accounts.
+     */
+    public function socialAccounts()
+    {
+        return $this->hasMany(SocialAccount::class);
+    }
+
+    /**
+     * Get the business accounts.
+     */
+    public function businesses()
+    {
+        return $this->belongsToMany(Business::class)->withTimestamps();
     }
 
     /**
