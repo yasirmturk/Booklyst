@@ -26,7 +26,7 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 
 Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::get('admin', 'HomeController@index')->name('admin')->middleware('can:admin');
+Route::get('admin', 'AdminController@index')->name('admin')->middleware('can:admin');
 
 Route::get('developer', 'DeveloperController@index')->name('developer')->middleware('auth');
 
