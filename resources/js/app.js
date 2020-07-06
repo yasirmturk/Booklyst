@@ -7,7 +7,6 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import Vuetify from './vuetify';
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,7 +19,6 @@ import Vuetify from './vuetify';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('app', require('./components/App.vue').default);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.component('passport-clients', require('./components/passport/Clients.vue').default);
@@ -41,6 +39,5 @@ Vue.component(
  */
 
 const app = new Vue({
-    el: '#app',
-    vuetify: Vuetify,
+    el: '#app'
 });
