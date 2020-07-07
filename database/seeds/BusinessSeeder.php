@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\Business;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class BusinessSeeder extends Seeder
 {
@@ -13,7 +15,18 @@ class BusinessSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        Category::truncate();
         Business::truncate();
+        Schema::enableForeignKeyConstraints();
+
+        $saloon = Category::create([
+            'name' => 'Saloon',
+        ]);
+        $parlour = Category::create([
+            'name' => 'Parlour',
+        ]);
+
 
         $user = User::where('email', 'u@example.com')->first();
         $business = Business::create([
@@ -24,6 +37,7 @@ class BusinessSeeder extends Seeder
             'phone' => '+441274991000',
             'employee_count' => 10
         ]);
+        $business->categories()->save($saloon);
         $business->users()->save($user);
         $business->save();
 
@@ -36,6 +50,7 @@ class BusinessSeeder extends Seeder
             'phone' => '+441274992000',
             'employee_count' => 50
         ]);
+        $business->categories()->save($saloon);
         $business->users()->save($admin);
         $business->save();
 
@@ -48,6 +63,7 @@ class BusinessSeeder extends Seeder
             'phone' => '+441274993000',
             'employee_count' => 100
         ]);
+        $business->categories()->save($parlour);
         $business->users()->save($superAdmin);
         $business->save();
     }
