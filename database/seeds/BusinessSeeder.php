@@ -26,7 +26,15 @@ class BusinessSeeder extends Seeder
         $parlour = Category::create([
             'name' => 'Parlour',
         ]);
-
+        Category::insert([
+            ['name' => 'Men\'s Hair'],
+            ['name' => 'Women\'s Hair'],
+            ['name' => 'Face'],
+            ['name' => 'Massage'],
+            ['name' => 'Pedicure'],
+            ['name' => 'Manicure'],
+            ['name' => 'Spa'],
+        ]);
 
         $user = User::where('email', 'u@example.com')->first();
         $business = Business::create([
