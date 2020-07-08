@@ -14,18 +14,32 @@ class CreateBusinessesTable extends Migration
      */
     public function up()
     {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->tinyInteger('is_service');
             $table->tinyInteger('is_product');
-            $table->string('categories')->default('[]');
+            // $table->string('categories')->default('[]');
             $table->enum('type', Business::$types);
             $table->text('description')->nullable();
             $table->string('phone');
             $table->integer('employee_count')->default(0);
             $table->timestamps();
         });
+
+        Schema::create('business_category', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('business_id')->constrained();
+            $table->timestamps();
+        });
+
         Schema::create('business_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
@@ -42,6 +56,8 @@ class CreateBusinessesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('business_user');
+        Schema::dropIfExists('business_category');
         Schema::dropIfExists('businesses');
+        Schema::dropIfExists('category');
     }
 }

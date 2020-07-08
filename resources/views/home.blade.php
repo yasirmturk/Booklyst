@@ -15,7 +15,7 @@
                     @endif
 
                     You are logged in!
-
+                    <example-component></example-component>
                     <!-- list of clients people have authorized to access our account -->
                     <passport-authorized-clients></passport-authorized-clients>
                     <hr />

@@ -32,8 +32,16 @@ class Business extends Model
      * @var array
      */
     protected $casts = [
-        'categories' => 'array',
+        // 'categories' => 'array',
     ];
+
+    /**
+     * Get the business categories.
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class)->withTimestamps();
+    }
 
     /**
      * Get the associated Users.
