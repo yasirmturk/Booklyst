@@ -1,9 +1,0 @@
-2020.06.15 22:43:30 INFO  started: Metals version 0.9.0 in workspace '/Users/punchee/Documents/personal/projects/sajid/turk'
-2020.06.15 22:43:31 INFO  time: initialize in 1.41s
-2020.06.15 22:43:33 WARN  no build tool detected in workspace '/Users/punchee/Documents/personal/projects/sajid/turk'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
-2020.06.15 22:49:08 INFO  shutting down Metals
-2020.06.15 23:39:45 INFO  started: Metals version 0.9.0 in workspace '/Users/punchee/Documents/personal/projects/sajid/turk'
-2020.06.15 23:39:46 INFO  time: initialize in 0.92s
-2020.06.15 23:39:47 WARN  no build tool detected in workspace '/Users/punchee/Documents/personal/projects/sajid/turk'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
-Jun 16, 2020 8:52:31 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
-INFO: Unsupported notification method: $/setTraceNotification
