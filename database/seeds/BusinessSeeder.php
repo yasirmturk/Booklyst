@@ -20,14 +20,18 @@ class BusinessSeeder extends Seeder
         Business::truncate();
         Schema::enableForeignKeyConstraints();
 
-        $saloon = Category::create([
-            'name' => 'Saloon',
-        ]);
-        $parlour = Category::create([
-            'name' => 'Parlour',
+        Category::insert([
+            ['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1],
+            ['name' => 'Women\'s Hair', 'is_service' => 1, 'is_product' => 1],
+            ['name' => 'Face', 'is_service' => 0, 'is_product' => 1],
+            ['name' => 'Massage', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Pedicure', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Manicure', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Spa', 'is_service' => 1, 'is_product' => 0],
         ]);
 
-
+        $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0]);
+        $parlour = Category::create(['name' => 'Parlour', 'is_service' => 1, 'is_product' => 0]);
         $user = User::where('email', 'u@example.com')->first();
         $business = Business::create([
             'name' => 'Saloon X',

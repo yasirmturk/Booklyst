@@ -24,6 +24,9 @@ class UserSeeder extends Seeder
             'remember_token' => str_random(10),
             'roles' => [Permissions::ROLE_CUSTOMER],
         ]);
+        // $user = User::where('email', 'u@example.com')->first();
+        // $user->addRole(Permissions::ROLE_CUSTOMER);
+        $user->save();
 
         $user = factory(User::class)->create([
             'name' => 'Admin Test',
@@ -32,6 +35,8 @@ class UserSeeder extends Seeder
             'remember_token' => str_random(10),
             'roles' => [Permissions::ROLE_CUSTOMER],
         ]);
+        // $user = User::where('email', 'a@example.com')->first();
+        // $user->addRole(Permissions::ROLE_CUSTOMER);
         $user->addRole(Permissions::ROLE_ADMIN);
         $user->save();
 
@@ -42,7 +47,15 @@ class UserSeeder extends Seeder
             'remember_token' => str_random(10),
             'roles' => [Permissions::ROLE_CUSTOMER],
         ]);
+        // $user = User::where('email', 'sa@example.com')->first();
+        // $user->addRole(Permissions::ROLE_CUSTOMER);
         $user->addRole(Permissions::ROLE_SUPER_ADMIN);
         $user->save();
+
+        // $users = User::all();
+        // foreach ($users as $user) {
+        //     $user->addRole(Permissions::ROLE_CUSTOMER);
+        //     $user->save();
+        // }
     }
 }

@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar elevation-4 sidebar-dark-danger">
+<aside class="main-sidebar elevation-4 sidebar-dark-navy">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link navbar-danger">
+    <a href="index3.html" class="brand-link">
         <img src="{{ asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
     </a>
@@ -62,12 +62,15 @@
                 </li>
                 <li class="nav-header">SETTINGS</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings.category') }}" class="nav-link">
+                    <a href="{{ route('admin.settings.users.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.categories.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
-                        <p>
-                            Categories
-                            <span class="badge badge-info right">2</span>
-                        </p>
+                        <p>Categories<span class="badge badge-info right">2</span></p>
                     </a>
                 </li>
             </ul>

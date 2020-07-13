@@ -17,6 +17,8 @@ class CreateBusinessesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->tinyInteger('is_service');
+            $table->tinyInteger('is_product');
             $table->timestamps();
         });
 
