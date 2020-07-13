@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', 'AdminController@index');
 Route::name('settings.')->prefix('settings')->group(function () {
+    Route::resource('users', 'UserController')->only(['index', 'store', 'destroy']);
     Route::resource('categories', 'CategoryController')->only(['index', 'store', 'destroy']);
     // Route::get('category', 'CategoryController@index')->name('category');
 });

@@ -62,12 +62,15 @@
                 </li>
                 <li class="nav-header">SETTINGS</li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.settings.users.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Users<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.settings.categories.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
-                        <p>
-                            Categories
-                            <span class="badge badge-info right">2</span>
-                        </p>
+                        <p>Categories<span class="badge badge-info right">2</span></p>
                     </a>
                 </li>
             </ul>
