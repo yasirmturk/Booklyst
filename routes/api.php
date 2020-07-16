@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +27,10 @@ Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->na
 
 // protected routes
 Route::middleware('auth:api')->group(function () {
+    Route::get('user', 'UserController@current');
     Route::post('logout', 'AuthController@logout')->name('logout.api');
-    Route::get('user', function (Request $request) {
-        return $request->user();
-    });
+    // Management
+    Route::apiResource('users', 'UserController')->middleware('can:admin');
     Route::post('businesses', 'BusinessController@register')->name('api.business.register');
     Route::get('businesses/{id}', 'BusinessController@find')->name('api.business.find');
     Route::put('businesses/{id}', 'BusinessController@update')->name('api.business.update');
