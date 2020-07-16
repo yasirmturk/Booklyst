@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         $this->call(UserSeeder::class);
 
         $this->seedOauthClients();
 
         $this->call(BusinessSeeder::class);
+        Schema::enableForeignKeyConstraints();
     }
 
     private function seedOauthClients()
