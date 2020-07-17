@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Routing\Router;
 
 class Kernel extends HttpKernel
 {
@@ -21,7 +23,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\Cors::class,
     ];
 
     /**
@@ -43,8 +44,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:60,1',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\ForceJsonResponse::class,
-            \App\Http\Middleware\Cors::class,
         ],
     ];
 
@@ -71,6 +70,19 @@ class Kernel extends HttpKernel
         'api.user' => \App\Http\Middleware\AuthUserApi::class,
         // 'auth.admin' => \App\Http\Middleware\AuthAdmin::class,
         // 'auth.superAdmin' => \App\Http\Middleware\AuthSuperAdmin::class,
-        'api.auth' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     ];
+
+    /**
+     * Create a new HTTP kernel instance.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param  \Illuminate\Routing\Router  $router
+     * @return void
+     */
+    public function __construct(Application $app, Router $router)
+    {
+        parent::__construct($app, $router);
+        $this->prependMiddlewareToGroup('api', 'App\Http\Middleware\ForceJsonResponse');
+    }
 }
