@@ -56,6 +56,20 @@ services:
       - .docker/turk.host-key.pem:/etc/ssl/nginx.key
     networks:
       - app-network
+      
+  dnsmasq:
+    container_name: dnsmasq
+    image: andyshinn/dnsmasq:latest
+    command: --log-facility=-
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - .docker/dnsmasq.conf:/etc/dnsmasq.conf
+    networks:
+      - app-network
+    cap_add:
+      - NET_ADMIN
 
 #Volumes
 volumes:

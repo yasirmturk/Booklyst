@@ -4,19 +4,16 @@
 
 Install Docker
 
-Execute
-`docker-compose up -d`
+Edit `.docker/conf.d/default.conf` for nginx
 
-Execute
-```brew install dnsmasq
-sudo echo 'address=/.test/127.0.0.1' >> /usr/local/etc/dnsmasq.conf```
-
-Execute
+Edit `.docker/dnsmasq.conf` to setup custom domain like 
+```address=/.test/127.0.0.1```
+and
 ```sudo mkdir -p /etc/resolver
 echo 'nameserver 127.0.0.1' | sudo tee /etc/resolver/test```
 
-Start DNS Resolver
-`sudo brew services restart dnsmasq`
+Start docker by running
+`docker-compose up -d`
 
 For local SSL
 `brew install mkcert`
@@ -30,4 +27,4 @@ then map the certificate files in `docker-compose.yml` for nginx or nginx-proxy 
     volumes:
       - .docker/turk.host.pem:/etc/ssl/nginx.crt
       - .docker/turk.host-key.pem:/etc/ssl/nginx.key
-      ```
+```
