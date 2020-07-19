@@ -13,16 +13,15 @@ RUN apt-get update && apt-get install -y \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     libmemcached-dev \
+    libpq-dev \
     libzip-dev \
     locales \
-    zip \
+    zip unzip \
     jpegoptim optipng pngquant gifsicle \
     vim \
-    unzip \
     git \
     curl \
-    nodejs \
-    npm 
+    nodejs npm
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -31,19 +30,20 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN pecl install -o -f redis memcached \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis memcached
-RUN docker-php-ext-install pdo_mysql opcache mbstring zip exif pcntl
+RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring zip exif pcntl
 RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/ \
     && docker-php-ext-install gd
-    
-RUN { \
-        echo 'opcache.memory_consumption=128'; \
-        echo 'opcache.interned_strings_buffer=8'; \
-        echo 'opcache.max_accelerated_files=4000'; \
-        # echo 'opcache.revalidate_freq=2'; \
-        # echo 'opcache.fast_shutdown=1'; \
-        echo 'opcache.validate_timestamps=0'; \
-        echo 'opcache.enable_cli=1'; \
-    } > /usr/local/etc/php/conf.d/php-opocache-cfg.ini
+
+# Code caching not need in DEV but could be enabled for testing and fast execution
+# RUN docker-php-ext-install opcache && { \
+#         echo 'opcache.memory_consumption=128'; \
+#         echo 'opcache.interned_strings_buffer=8'; \
+#         echo 'opcache.max_accelerated_files=4000'; \
+#         # echo 'opcache.revalidate_freq=2'; \
+#         # echo 'opcache.fast_shutdown=1'; \
+#         echo 'opcache.validate_timestamps=0'; \
+#         echo 'opcache.enable_cli=1'; \
+#     } > /usr/local/etc/php/conf.d/php-opocache-cfg.ini
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
