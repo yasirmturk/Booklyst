@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SocialAccount extends Model
 {
+    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
