@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 // Root
 Route::get('', 'Controller@index');
+Route::get('ping', 'Controller@ping');
 // Authentication
 Auth::routes(['verify' => true]);
 // Social login callbacks
