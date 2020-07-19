@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -15,22 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', function () {
-    return view('welcome');
-});
-
+// Root
+Route::get('', 'Controller@index');
+Route::get('ping', 'Controller@ping');
+// Authentication
 Auth::routes(['verify' => true]);
-
+// Social login callbacks
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
-
-Route::get('home', 'HomeController@index')->name('home')->middleware('auth');
-
+// User Home
+Route::get('home', 'HomeController@index')->middleware('auth')->name('home');
+// User Developer
 Route::get('developer', 'DeveloperController@index')->name('developer')->middleware('auth');
-
-Route::get('reset', function () {
-    Artisan::call('route:clear');
-    Artisan::call('cache:clear');
-    Artisan::call('config:cache');
-    Artisan::call('view:cache');
-});
+// Admin reset
+Route::get('reset', 'Controller@reset')->middleware(['auth', 'can:admin'])->name('reset');

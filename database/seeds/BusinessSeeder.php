@@ -4,7 +4,6 @@ use App\Models\Business;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class BusinessSeeder extends Seeder
 {
@@ -15,10 +14,8 @@ class BusinessSeeder extends Seeder
      */
     public function run()
     {
-        Schema::disableForeignKeyConstraints();
         Category::truncate();
         Business::truncate();
-        Schema::enableForeignKeyConstraints();
 
         Category::insert([
             ['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1],

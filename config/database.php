@@ -35,13 +35,13 @@ return [
 
     'connections' => [
 
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'url' => env('DATABASE_URL'),
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
-            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
-        ],
+        // 'sqlite' => [
+        //     'driver' => 'sqlite',
+        //     'url' => env('DATABASE_URL'),
+        //     'database' => env('DB_DATABASE', database_path('database.sqlite')),
+        //     'prefix' => '',
+        //     'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        // ],
 
         'mysql' => [
             'driver' => 'mysql',
@@ -66,11 +66,11 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'ec2-52-31-233-101.eu-west-1.compute.amazonaws.com'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'd9ne1s4pm6cqk0'),
+            'username' => env('DB_USERNAME', 'ytgosrvbofikfx'),
+            'password' => env('DB_PASSWORD', '2864e6e0af51bb1b52807b263e49f7ab82ffaf595c904855890e558a1d02e315'),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,
@@ -78,18 +78,18 @@ return [
             'sslmode' => 'prefer',
         ],
 
-        'sqlsrv' => [
-            'driver' => 'sqlsrv',
-            'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '1433'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-        ],
+        // 'sqlsrv' => [
+        //     'driver' => 'sqlsrv',
+        //     'url' => env('DATABASE_URL'),
+        //     'host' => env('DB_HOST', 'localhost'),
+        //     'port' => env('DB_PORT', '1433'),
+        //     'database' => env('DB_DATABASE', 'forge'),
+        //     'username' => env('DB_USERNAME', 'forge'),
+        //     'password' => env('DB_PASSWORD', ''),
+        //     'charset' => 'utf8',
+        //     'prefix' => '',
+        //     'prefix_indexes' => true,
+        // ],
 
     ],
 

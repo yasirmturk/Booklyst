@@ -16,6 +16,25 @@ class Category extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'id', 'created_at', 'updated_at',
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_service' => 'boolean',
+        'is_product' => 'boolean',
+    ];
+
+    /**
      * Get the associated Users.
      */
     public function businesses()

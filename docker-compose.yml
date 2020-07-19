@@ -1,0 +1,82 @@
+version: "3"
+
+services:
+  #PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    container_name: app
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "9000:9000"
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - .docker/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - app-network
+
+  #MySQL Service
+  db:
+    image: mariadb:10.2
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+      # - ./mysql/my.cnf:/etc/mysql/my.cnf
+    networks:
+      - app-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - .docker/conf.d/:/etc/nginx/conf.d/
+      - .docker/turk.test.pem:/etc/ssl/nginx.crt
+      - .docker/turk.test-key.pem:/etc/ssl/nginx.key
+    networks:
+      - app-network
+
+  dnsmasq:
+    container_name: dnsmasq
+    image: andyshinn/dnsmasq:latest
+    command: --log-facility=-
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+    volumes:
+      - .docker/dnsmasq.conf:/etc/dnsmasq.conf
+    networks:
+      - app-network
+    cap_add:
+      - NET_ADMIN
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge

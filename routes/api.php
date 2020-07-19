@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,24 +14,32 @@ use Illuminate\Support\Facades\Route;
 */
 
 // auth routes
-Route::middleware('api.user')->group(function () {
-    Route::post('login/social', 'AuthController@loginSocial')->name('login.social.api');
-    Route::post('login/{provider}', 'AuthController@loginProvider')->name('login.provider.api');
-    Route::post('login', 'AuthController@login')->name('login.api');
-    Route::post('register', 'AuthController@register')->name('register.api');
+Route::name('login.')->middleware('api.user')->group(function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('login/social', 'AuthController@loginSocial')->name('social');
+    Route::post('login/{provider}', 'AuthController@loginProvider')->name('provider');
+    Route::post('register', 'AuthController@register')->name('register');
 });
 
-// guest routes
-Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot.api');
+// Guest routes
+Route::name('meta.')->prefix('meta')->middleware('client')->group(function () {
+    Route::get('', 'MetaController@index');
+    Route::get('all', 'MetaController@all')->name('all');
+});
+Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->name('forgot');
 
-
-// protected routes
+// Protected routes
 Route::middleware('auth:api')->group(function () {
-    Route::post('logout', 'AuthController@logout')->name('logout.api');
-    Route::get('user', function (Request $request) {
-        return $request->user();
+    // User profile
+    Route::get('user', 'UserController@current');
+    // Logout
+    Route::post('logout', 'AuthController@logout')->name('logout');
+    // Management
+    Route::apiResource('users', 'UserController')->middleware('can:admin');
+    // Business
+    Route::name('business.')->group(function () {
+        Route::post('businesses', 'BusinessController@register')->name('register');
+        Route::get('businesses/{id}', 'BusinessController@find')->name('find');
+        Route::put('businesses/{id}', 'BusinessController@update')->name('update');
     });
-    Route::post('businesses', 'BusinessController@register')->name('api.business.register');
-    Route::get('businesses/{id}', 'BusinessController@find')->name('api.business.find');
-    Route::put('businesses/{id}', 'BusinessController@update')->name('api.business.update');
 });
