@@ -40,6 +40,14 @@ services:
     networks:
       - app-network
 
+  redis:
+    image: redis:alpine
+    container_name: redis
+    volumes:
+      - redisdata:/data
+    networks:
+      - app-network
+
   #Nginx Service
   webserver:
     image: nginx:alpine
@@ -74,6 +82,8 @@ services:
 #Volumes
 volumes:
   dbdata:
+    driver: local
+  redisdata:
     driver: local
 
 #Docker Networks
