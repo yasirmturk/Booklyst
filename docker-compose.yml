@@ -18,6 +18,7 @@ services:
     volumes:
       - ./:/var/www
       - .docker/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ~/.composer/auth.json:/home/www/.composer/auth.json
     networks:
       - app-network
 
