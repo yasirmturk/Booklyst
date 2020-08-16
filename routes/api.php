@@ -49,4 +49,8 @@ Route::middleware('auth:api')->group(function () {
         Route::get('images/f/{filename}', 'ImageController@showByFileName')->name('show');
         // Route::get('images/{image}', 'ImageController@show')->name('show');
     });
+    // Search
+    Route::name('search.')->prefix('search')->group(function () {
+        Route::get('categories', 'SearchController@listCategories')->name('listCategories');
+    });
 });
