@@ -4,6 +4,7 @@ use App\Models\Business;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class BusinessSeeder extends Seeder
 {
@@ -14,8 +15,16 @@ class BusinessSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+
+        $this->seedCatgories();
+        $this->seedBusinesses();
+
+        Schema::enableForeignKeyConstraints();
+    }
+
+    private function seedCatgories() {
         Category::truncate();
-        Business::truncate();
 
         Category::insert([
             ['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1],
@@ -26,6 +35,10 @@ class BusinessSeeder extends Seeder
             ['name' => 'Manicure', 'is_service' => 1, 'is_product' => 0],
             ['name' => 'Spa', 'is_service' => 1, 'is_product' => 0],
         ]);
+    }
+
+    private function seedBusinesses() {
+        Business::truncate();
 
         $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0]);
         $parlour = Category::create(['name' => 'Parlour', 'is_service' => 1, 'is_product' => 0]);
@@ -40,6 +53,22 @@ class BusinessSeeder extends Seeder
         ]);
         $business->categories()->save($saloon);
         $business->users()->save($user);
+        $business->addresses()->create([
+            'label' => 'Default Address',
+            'given_name' => 'Abdelrahman',
+            'family_name' => 'Omran',
+            'organization' => 'Rinvex',
+            'country_code' => 'eg',
+            'street' => '56 john doe st.',
+            'state' => 'Alexandria',
+            'city' => 'Alexandria',
+            'postal_code' => '21614',
+            'latitude' => '31.2467601',
+            'longitude' => '29.9020376',
+            'is_primary' => true,
+            'is_billing' => true,
+            'is_shipping' => true,
+        ]);
         $business->save();
 
         $admin = User::where('email', 'a@example.com')->first();
@@ -53,6 +82,22 @@ class BusinessSeeder extends Seeder
         ]);
         $business->categories()->save($saloon);
         $business->users()->save($admin);
+        $business->addresses()->create([
+            'label' => 'Default Address',
+            'given_name' => 'Abdelrahman',
+            'family_name' => 'Omran',
+            'organization' => 'Rinvex',
+            'country_code' => 'eg',
+            'street' => '56 john doe st.',
+            'state' => 'Alexandria',
+            'city' => 'Alexandria',
+            'postal_code' => '21614',
+            'latitude' => '31.2467601',
+            'longitude' => '29.9020376',
+            'is_primary' => true,
+            'is_billing' => true,
+            'is_shipping' => true,
+        ]);
         $business->save();
 
         $superAdmin = User::where('email', 'sa@example.com')->first();
@@ -66,6 +111,22 @@ class BusinessSeeder extends Seeder
         ]);
         $business->categories()->save($parlour);
         $business->users()->save($superAdmin);
+        $business->addresses()->create([
+            'label' => 'Default Address',
+            'given_name' => 'Abdelrahman',
+            'family_name' => 'Omran',
+            'organization' => 'Rinvex',
+            'country_code' => 'eg',
+            'street' => '56 john doe st.',
+            'state' => 'Alexandria',
+            'city' => 'Alexandria',
+            'postal_code' => '21614',
+            'latitude' => '31.2467601',
+            'longitude' => '29.9020376',
+            'is_primary' => true,
+            'is_billing' => true,
+            'is_shipping' => true,
+        ]);
         $business->save();
     }
 }

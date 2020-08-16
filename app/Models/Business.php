@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Addresses\Traits\Addressable;
 
 class Business extends Model
 {
+    use Addressable;
+
     const TYPE_HOME = 'HOME';
     const TYPE_SHOP = 'SHOP';
     const TYPE_MOBILE = 'MOBILE';
@@ -24,6 +27,15 @@ class Business extends Model
      */
     protected $fillable = [
         'name', 'is_service', 'is_product', 'type', 'phone', 'employee_count'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'id', 'created_at', 'updated_at',
     ];
 
     /**

@@ -39,6 +39,7 @@ Route::middleware('auth:api')->group(function () {
     // Business
     Route::name('business.')->group(function () {
         Route::post('businesses', 'BusinessController@register')->name('register');
+        Route::get('businesses', 'BusinessController@mine')->name('mine');
         Route::get('businesses/{id}', 'BusinessController@find')->name('find');
         Route::put('businesses/{id}', 'BusinessController@update')->name('update');
     });
