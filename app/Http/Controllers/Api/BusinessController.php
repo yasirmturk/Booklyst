@@ -21,7 +21,9 @@ class BusinessController extends Controller
     public function mine(Request $request)
     {
         $user = $request->user();
-        return $user->businesses;
+        $business = $user->businesses()->first();
+        $address = $business->addresses()->first();
+        return ['business' => $business, 'address' => $address];
     }
 
     public function find(Request $request, $id)

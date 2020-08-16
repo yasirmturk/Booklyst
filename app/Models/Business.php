@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Rinvex\Addresses\Traits\Addressable;
 
 class Business extends Model
 {
+    use Addressable;
+
     const TYPE_HOME = 'HOME';
     const TYPE_SHOP = 'SHOP';
     const TYPE_MOBILE = 'MOBILE';
