@@ -46,6 +46,6 @@ To generate new certs for a new domain execute following in `.docker/`
 then map the certificate files in `docker-compose.yml` for nginx or nginx-proxy like this:
 ```
     volumes:
-      - .docker/turk.host.pem:/etc/ssl/nginx.crt
-      - .docker/turk.host-key.pem:/etc/ssl/nginx.key
+      - .docker/turk.test.pem:/etc/ssl/nginx.crt
+      - .docker/turk.test-key.pem:/etc/ssl/nginx.key
 ```

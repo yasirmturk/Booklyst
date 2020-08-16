@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 
 class MetaController extends Controller
 {
-    public function index(Request $request)
+    public function default(Request $request)
     {
         return [];
     }
+
     public function all(Request $request)
     {
         $categories = Category::all();
