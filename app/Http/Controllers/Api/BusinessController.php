@@ -18,14 +18,15 @@ class BusinessController extends Controller
         return $business->save();
     }
 
-    public function find(Request $request, $id)
+    public function mine(Request $request)
     {
         $user = $request->user();
-        if ($id) {
-            return Business::findOrFail($id);
-        } else {
-            return $user->businesses;
-        }
+        return $user->businesses;
+    }
+
+    public function find(Request $request, $id)
+    {
+        return Business::findOrFail($id);
     }
 
     public function update(Request $request, $id)
