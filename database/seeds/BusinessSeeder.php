@@ -27,26 +27,27 @@ class BusinessSeeder extends Seeder
         Category::truncate();
 
         Category::insert([
-            ['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1],
-            ['name' => 'Women\'s Hair', 'is_service' => 1, 'is_product' => 1],
-            ['name' => 'Face', 'is_service' => 0, 'is_product' => 1],
-            ['name' => 'Massage', 'is_service' => 1, 'is_product' => 0],
-            ['name' => 'Pedicure', 'is_service' => 1, 'is_product' => 0],
-            ['name' => 'Manicure', 'is_service' => 1, 'is_product' => 0],
-            ['name' => 'Spa', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1, 'image_id' => 1],
+            ['name' => 'Women\'s Hair', 'is_service' => 1, 'is_product' => 1, 'image_id' => 2],
+            ['name' => 'Face', 'is_service' => 0, 'is_product' => 1, 'image_id' => 3],
+            ['name' => 'Massage', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
+            ['name' => 'Pedicure', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
+            ['name' => 'Manicure', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
+            ['name' => 'Spa', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
         ]);
     }
 
     private function seedBusinesses() {
         Business::truncate();
 
-        $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0]);
-        $parlour = Category::create(['name' => 'Parlour', 'is_service' => 1, 'is_product' => 0]);
+        $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3]);
+        $parlour = Category::create(['name' => 'Parlour', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3]);
         $user = User::where('email', 'u@example.com')->first();
         $business = Business::create([
             'name' => 'Saloon X',
             'is_service' => 1,
             'is_product' => 0,
+            'image_id' => 3,
             'type' => Business::TYPE_HOME,
             'phone' => '+441274991000',
             'employee_count' => 10
@@ -76,6 +77,7 @@ class BusinessSeeder extends Seeder
             'name' => 'Saloon Y',
             'is_service' => 0,
             'is_product' => 1,
+            'image_id' => 3,
             'type' => Business::TYPE_SHOP,
             'phone' => '+441274992000',
             'employee_count' => 50
@@ -105,6 +107,7 @@ class BusinessSeeder extends Seeder
             'name' => 'Saloon Z',
             'is_service' => 1,
             'is_product' => 1,
+            'image_id' => 3,
             'type' => Business::TYPE_MOBILE,
             'phone' => '+441274993000',
             'employee_count' => 100

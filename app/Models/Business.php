@@ -44,8 +44,16 @@ class Business extends Model
      * @var array
      */
     protected $casts = [
-        // 'categories' => 'array',
+        'image_id' => Image::class,
     ];
+
+    /**
+     * Get the image
+     */
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
 
     /**
      * Get the business categories.
