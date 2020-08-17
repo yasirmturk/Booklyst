@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'u@example.com',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => str_random(10),
-            'roles' => [Permissions::ROLE_CUSTOMER],
+            'roles' => [Permissions::ROLE_CUSTOMER, Permissions::ROLE_PROVIDER],
         ]);
         // $user = User::where('email', 'u@example.com')->first();
         // $user->addRole(Permissions::ROLE_CUSTOMER);

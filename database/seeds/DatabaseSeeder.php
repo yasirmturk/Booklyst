@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
+
+        $this->call(ImageSeeder::class);
         $this->call(UserSeeder::class);
 
         $this->seedOauthClients();
