@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
-        $this->call(ImageSeeder::class);
-        $this->call(UserSeeder::class);
-
         $this->seedOauthClients();
 
+        $this->call(ImageSeeder::class);
+        $this->call(UserSeeder::class);
         $this->call(BusinessSeeder::class);
+
         Schema::enableForeignKeyConstraints();
     }
 

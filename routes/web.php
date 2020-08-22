@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 // Root
 Route::get('', 'Controller@index');
 Route::get('ping', 'Controller@ping');
+// Static
+Route::get('images/s/{filename}', 'Api\ImageController@showByFileName');
+// Route::get('images/{image}', 'Api\ImageController@show')->name('show');
 // Authentication
 Auth::routes(['verify' => true]);
 // Social login callbacks

@@ -48,7 +48,6 @@ Route::middleware('auth:api')->group(function () {
         Route::post('images', 'ImageController@store')->name('store');
         Route::post('images/update/{filename}', 'ImageController@update')->name('update');
         Route::get('images/f/{filename}', 'ImageController@showByFileName')->name('show');
-        // Route::get('images/{image}', 'ImageController@show')->name('show');
     });
     // Search
     Route::name('search.')->prefix('search')->group(function () {

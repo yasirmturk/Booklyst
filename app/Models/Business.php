@@ -12,6 +12,7 @@ class Business extends Model
     const TYPE_HOME = 'HOME';
     const TYPE_SHOP = 'SHOP';
     const TYPE_MOBILE = 'MOBILE';
+
     /**
      * The types that should be allowed.
      *
@@ -20,6 +21,7 @@ class Business extends Model
     public static $types = [
         self::TYPE_HOME, self::TYPE_SHOP, self::TYPE_MOBILE
     ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -35,24 +37,25 @@ class Business extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at',
+        'id', 'created_at', 'updated_at', 'pivot',
     ];
 
+    /** Also expand */
+    protected $with = ['images', 'addresses'];
+
     /**
-     * The attributes that should be cast to native types.
+     * The accessors to append to the model's array form.
      *
      * @var array
      */
-    protected $casts = [
-        'image_id' => Image::class,
-    ];
+    // protected $appends = ['images'];
 
     /**
-     * Get the image
+     * Get the images
      */
-    public function image()
+    public function images()
     {
-        return $this->belongsTo(Image::class);
+        return $this->morphToMany(Image::class, 'imageable');
     }
 
     /**

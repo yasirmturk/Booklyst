@@ -20,6 +20,11 @@
                         <ul class="list-group list-group-flush">
                             @foreach ($categories as $category)
                             <li class="list-group-item row">
+                                <form action="{{ route('admin.settings.categories.destroy', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="close" aria-label="Delete"><span aria-hidden="true">&times;</span></button>
+                                </form>
                                 <h5 class="col-6">{{ $category->name }}
                                     <small>
                                         <div class="icheck-primary d-inline">
@@ -32,13 +37,7 @@
                                         </div>
                                     </small>
                                 </h5>
-                                <div class="col-1">
-                                    <form action="{{ route('admin.settings.categories.destroy', $category->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                    </form>
-                                </div>
+                                <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;" src="/images/s/{{ $category->image_id->filename }}" />
                             </li>
                             @endforeach
                         </ul>
@@ -62,7 +61,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('admin.settings.categories.store') }}">
+                <form method="POST" action="{{ route('admin.settings.categories.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <p>Enter the details&hellip;</p>
@@ -73,18 +72,18 @@
                         <div class="form-group">
                             <div class="icheck-primary d-inline">
                                 <input type="checkbox" id="inputService" name="is_service">
-                                <label for="inputService">
-                                    Service
-                                </label>
+                                <label for="inputService">Service</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="icheck-primary d-inline">
                                 <input type="checkbox" id="inputProduct" name="is_product">
-                                <label for="inputProduct">
-                                    Product
-                                </label>
+                                <label for="inputProduct">Product</label>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputImage">Picture</label>
+                            <input type="file" id="inputImage" name="image" />
                         </div>
                     </div>
                     <div class="modal-footer justify-content-end">

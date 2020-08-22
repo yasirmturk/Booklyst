@@ -5,6 +5,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
+use Rinvex\Addresses\Models\Address;
 
 class BusinessSeeder extends Seeder
 {
@@ -18,45 +19,61 @@ class BusinessSeeder extends Seeder
         Schema::disableForeignKeyConstraints();
 
         $this->seedCatgories();
+        $this->seedAddresses();
         $this->seedBusinesses();
 
         Schema::enableForeignKeyConstraints();
     }
 
-    private function seedCatgories() {
+    private function seedCatgories()
+    {
         Category::truncate();
 
+        $category = Category::create(['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1]);
+        $category->images()->attach(1);
+
+        $category = Category::create(['name' => 'Women\'s Hair', 'is_service' => 1, 'is_product' => 1]);
+        $category->images()->attach(2);
+
         Category::insert([
-            ['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1, 'image_id' => 1],
-            ['name' => 'Women\'s Hair', 'is_service' => 1, 'is_product' => 1, 'image_id' => 2],
-            ['name' => 'Face', 'is_service' => 0, 'is_product' => 1, 'image_id' => 3],
-            ['name' => 'Massage', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
-            ['name' => 'Pedicure', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
-            ['name' => 'Manicure', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
-            ['name' => 'Spa', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3],
+            ['name' => 'Face', 'is_service' => 0, 'is_product' => 1],
+            ['name' => 'Massage', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Pedicure', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Manicure', 'is_service' => 1, 'is_product' => 0],
+            ['name' => 'Spa', 'is_service' => 1, 'is_product' => 0],
         ]);
     }
 
-    private function seedBusinesses() {
+    private function seedAddresses()
+    {
+        Address::truncate();
+    }
+
+    private function seedBusinesses()
+    {
         Business::truncate();
 
-        $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3]);
-        $parlour = Category::create(['name' => 'Parlour', 'is_service' => 1, 'is_product' => 0, 'image_id' => 3]);
+        $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0]);
+        $saloon->images()->attach(3);
+
+        $parlour = Category::create(['name' => 'Parlour', 'is_service' => 1, 'is_product' => 0]);
+        $parlour->images()->attach(3);
+
         $user = User::where('email', 'u@example.com')->first();
         $business = Business::create([
             'name' => 'Saloon X',
             'is_service' => 1,
             'is_product' => 0,
-            'image_id' => 3,
             'type' => Business::TYPE_HOME,
             'phone' => '+441274991000',
             'employee_count' => 10
         ]);
         $business->categories()->save($saloon);
         $business->users()->save($user);
+        $business->images()->attach(3);
         $business->addresses()->create([
-            'label' => 'Default Address',
-            'given_name' => 'Abdelrahman',
+            'label' => 'Default Address 1',
+            'given_name' => 'Abdelrahman 1',
             'family_name' => 'Omran',
             'organization' => 'Rinvex',
             'country_code' => 'eg',
@@ -77,16 +94,16 @@ class BusinessSeeder extends Seeder
             'name' => 'Saloon Y',
             'is_service' => 0,
             'is_product' => 1,
-            'image_id' => 3,
             'type' => Business::TYPE_SHOP,
             'phone' => '+441274992000',
             'employee_count' => 50
         ]);
         $business->categories()->save($saloon);
         $business->users()->save($admin);
+        $business->images()->attach(3);
         $business->addresses()->create([
-            'label' => 'Default Address',
-            'given_name' => 'Abdelrahman',
+            'label' => 'Default Address 2',
+            'given_name' => 'Abdelrahman 2',
             'family_name' => 'Omran',
             'organization' => 'Rinvex',
             'country_code' => 'eg',
@@ -107,16 +124,16 @@ class BusinessSeeder extends Seeder
             'name' => 'Saloon Z',
             'is_service' => 1,
             'is_product' => 1,
-            'image_id' => 3,
             'type' => Business::TYPE_MOBILE,
             'phone' => '+441274993000',
             'employee_count' => 100
         ]);
         $business->categories()->save($parlour);
         $business->users()->save($superAdmin);
+        $business->images()->attach(3);
         $business->addresses()->create([
-            'label' => 'Default Address',
-            'given_name' => 'Abdelrahman',
+            'label' => 'Default Address 3',
+            'given_name' => 'Abdelrahman 3',
             'family_name' => 'Omran',
             'organization' => 'Rinvex',
             'country_code' => 'eg',

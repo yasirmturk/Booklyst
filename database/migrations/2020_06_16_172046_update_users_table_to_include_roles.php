@@ -26,7 +26,7 @@ class UpdateUsersTableToIncludeRoles extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIfExists('roles');
+            $table->dropColumn('roles');
         });
     }
 }

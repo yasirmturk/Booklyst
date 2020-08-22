@@ -32,15 +32,14 @@ class Category extends Model
     protected $casts = [
         'is_service' => 'boolean',
         'is_product' => 'boolean',
-        'image_id' => Image::class,
     ];
 
     /**
-     * Get the image
+     * Get the images
      */
-    public function image()
+    public function images()
     {
-        return $this->belongsTo(Image::class);
+        return $this->morphToMany(Image::class, 'imageable');
     }
 
     /**

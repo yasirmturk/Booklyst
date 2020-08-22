@@ -2,6 +2,7 @@
 
 use App\Models\Image;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class ImageSeeder extends Seeder
 {
@@ -12,7 +13,10 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         Image::truncate();
+
+        Schema::enableForeignKeyConstraints();
 
         Image::insert([
             [

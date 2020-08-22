@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
+use App\Traits\CloudUpload;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller
 {
+    use CloudUpload;
     /**
      * Where to redirect users after verification.
      *
@@ -53,14 +54,6 @@ class ImageController extends Controller
             ]);
         }
         return ['name' => $filename, 'url' => $url];
-    }
-
-    private function uploadToCloud(UploadedFile $file, $filename)
-    {
-        $path = 'images/' . $filename;
-        $this->cloud->put($path, file_get_contents($file));
-        $url = $this->cloud->url($path);
-        return $url;        
     }
 
     public function showByFileName(Request $request, $filename)

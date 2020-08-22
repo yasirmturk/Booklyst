@@ -15,9 +15,15 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
+            // $table->morphs('imageable');
             $table->string('filename');
             $table->string('url');
             $table->timestamps();
+        });
+
+        Schema::create('imageables', function (Blueprint $table) {
+            $table->foreignId('image_id')->constrained();
+            $table->morphs('imageable');
         });
     }
 
@@ -28,6 +34,7 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('imageables');
         Schema::dropIfExists('images');
     }
 }

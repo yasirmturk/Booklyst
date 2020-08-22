@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Image;
+use App\Traits\CloudUpload;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
+    use CloudUpload;
     /**
      * Show the category dashboard.
      *
@@ -34,17 +38,33 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'image' => 'required|image|max:1024',
             // 'is_service' => 'required',
             // 'is_product' => 'required',
         ]);
         $isService = $request->is_service == 'on';
         $isProduct = $request->is_product == 'on';
 
-        Category::create([
+        $category = Category::create([
             'name' => $request->name,
             'is_service' => $isService,
             'is_product' => $isProduct,
         ]);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = $file->hashName();
+            $url = $this->uploadToCloud($file, $filename);
+
+            $image = Image::create([
+                'filename' => $filename,
+                'url' => $url
+            ]);
+            $category->image = $image;
+            $category->save();
+        } else {
+            Log::debug('no image found');
+        }
 
         return redirect()->route('admin.settings.categories.index')
             ->with('success', 'Category created successfully.');

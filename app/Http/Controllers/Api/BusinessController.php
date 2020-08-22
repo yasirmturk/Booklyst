@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Business;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class BusinessController extends Controller
 {
@@ -20,10 +19,7 @@ class BusinessController extends Controller
 
     public function mine(Request $request)
     {
-        $user = $request->user();
-        $business = $user->businesses()->first();
-        $address = $business->addresses()->first();
-        return ['business' => $business, 'address' => $address];
+        return $request->user()->businesses()->get();
     }
 
     public function find(Request $request, $id)
