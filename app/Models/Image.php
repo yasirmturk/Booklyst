@@ -18,7 +18,7 @@ class Image extends Model //implements Castable
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at', 'pivot',
+        'id', 'url', 'created_at', 'updated_at', 'pivot',
     ];
 
     // /**

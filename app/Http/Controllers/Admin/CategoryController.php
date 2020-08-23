@@ -60,8 +60,7 @@ class CategoryController extends Controller
                 'filename' => $filename,
                 'url' => $url
             ]);
-            $category->image = $image;
-            $category->save();
+            $category->images()->save($image);
         } else {
             Log::debug('no image found');
         }

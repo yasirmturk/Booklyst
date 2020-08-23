@@ -4,6 +4,7 @@ use App\Models\Business;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Rinvex\Addresses\Models\Address;
 
@@ -18,15 +19,16 @@ class BusinessSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
 
-        $this->seedCatgories();
+        $this->seedCategories();
         $this->seedAddresses();
         $this->seedBusinesses();
 
         Schema::enableForeignKeyConstraints();
     }
 
-    private function seedCatgories()
+    private function seedCategories()
     {
+        DB::table('business_category')->delete();
         Category::truncate();
 
         $category = Category::create(['name' => 'Men\'s Hair', 'is_service' => 1, 'is_product' => 1]);
@@ -51,7 +53,10 @@ class BusinessSeeder extends Seeder
 
     private function seedBusinesses()
     {
+        DB::table('business_user')->delete();
         Business::truncate();
+
+        $faker = Faker\Factory::create();
 
         $saloon = Category::create(['name' => 'Saloon', 'is_service' => 1, 'is_product' => 0]);
         $saloon->images()->attach(3);
@@ -65,6 +70,7 @@ class BusinessSeeder extends Seeder
             'is_service' => 1,
             'is_product' => 0,
             'type' => Business::TYPE_HOME,
+            'description' => $faker->text,
             'phone' => '+441274991000',
             'employee_count' => 10
         ]);
@@ -95,6 +101,7 @@ class BusinessSeeder extends Seeder
             'is_service' => 0,
             'is_product' => 1,
             'type' => Business::TYPE_SHOP,
+            'description' => $faker->text,
             'phone' => '+441274992000',
             'employee_count' => 50
         ]);
@@ -125,7 +132,8 @@ class BusinessSeeder extends Seeder
             'is_service' => 1,
             'is_product' => 1,
             'type' => Business::TYPE_MOBILE,
-            'phone' => '+441274993000',
+            'description' => $faker->text,
+            'phone' => $faker->phoneNumber,
             'employee_count' => 100
         ]);
         $business->categories()->save($parlour);
@@ -133,14 +141,14 @@ class BusinessSeeder extends Seeder
         $business->images()->attach(3);
         $business->addresses()->create([
             'label' => 'Default Address 3',
-            'given_name' => 'Abdelrahman 3',
-            'family_name' => 'Omran',
-            'organization' => 'Rinvex',
+            'given_name' => $faker->firstName,
+            'family_name' => $faker->lastName,
+            'organization' => $faker->company,
             'country_code' => 'eg',
-            'street' => '56 john doe st.',
-            'state' => 'Alexandria',
-            'city' => 'Alexandria',
-            'postal_code' => '21614',
+            'street' => $faker->streetAddress,
+            'state' => $faker->state,
+            'city' => $faker->city,
+            'postal_code' => $faker->postcode,
             'latitude' => '31.2467601',
             'longitude' => '29.9020376',
             'is_primary' => true,

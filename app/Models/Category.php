@@ -24,6 +24,9 @@ class Category extends Model
         'id', 'created_at', 'updated_at',
     ];
 
+    /** Also expand */
+    protected $with = ['images'];
+
     /**
      * The attributes that should be cast to native types.
      *

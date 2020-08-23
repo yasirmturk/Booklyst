@@ -37,7 +37,7 @@
                                         </div>
                                     </small>
                                 </h5>
-                                <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;" src="/images/s/{{ $category->image_id->filename }}" />
+                                <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;" src="/images/s/{{ $category->images->first()['filename'] }}" />
                             </li>
                             @endforeach
                         </ul>
