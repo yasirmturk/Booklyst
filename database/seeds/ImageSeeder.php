@@ -31,6 +31,14 @@ class ImageSeeder extends Seeder
                 'filename' => 'JujLk1LlqQhnbsWKdlbjdHsbImENIQWszhWZtcqF.jpeg',
                 'url' => 'https://turklyst.s3.eu-west-2.amazonaws.com/images/62BQfF7h3fOupC5m0V2hVrrqtFnFpqVEQwsqpROU.jpeg'
             ],
+            [
+                'filename' => 'oyIrFyEe6qjioAEHSjgdLvxR94ma8BAcHUtCBUwN.jpeg',
+                'url' => 'https://turklyst.s3.eu-west-2.amazonaws.com/images/oyIrFyEe6qjioAEHSjgdLvxR94ma8BAcHUtCBUwN.jpeg'
+            ],
+            [
+                'filename' => 'mWZJGQPuFHW5FICoTg5oK85pTJPTTWXvskLUzX3A.jpeg',
+                'url' => 'https://turklyst.s3.eu-west-2.amazonaws.com/images/mWZJGQPuFHW5FICoTg5oK85pTJPTTWXvskLUzX3A.jpeg'
+            ]
         ]);
     }
 }

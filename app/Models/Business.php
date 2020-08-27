@@ -40,7 +40,9 @@ class Business extends Model
         'id', 'created_at', 'updated_at', 'pivot',
     ];
 
-    /** Also expand */
+    /**
+     * Also expand
+     */
     protected $with = ['images', 'addresses'];
 
     /**
@@ -72,5 +74,21 @@ class Business extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
+    }
+
+    /**
+     * Get the services
+     */
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    /**
+     * Get the products
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }
