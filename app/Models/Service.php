@@ -16,6 +16,15 @@ class Service extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'business_id', 'created_at', 'updated_at',
+    ];
+
+    /**
      * Get associated Business
      * @return \App\Models\Business
      */

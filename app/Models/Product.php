@@ -16,6 +16,15 @@ class Product extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'business_id', 'created_at', 'updated_at',
+    ];
+
+    /**
      * Also expand
      */
     protected $with = ['images'];
