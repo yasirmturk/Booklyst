@@ -42,16 +42,20 @@ Route::middleware('auth:api')->group(function () {
         Route::get('businesses', 'BusinessController@mine')->name('mine');
         Route::get('businesses/{id}', 'BusinessController@find')->name('find');
         Route::put('businesses/{id}', 'BusinessController@update')->name('update');
+        Route::post('businesses/{id}/services', 'BusinessController@addService')->name('addService');
+        Route::post('businesses/{id}/products', 'BusinessController@addProduct')->name('addProduct');
+        Route::delete('businesses/services/{id}', 'BusinessController@removeService')->name('removeService');
+        Route::delete('businesses/products/{id}', 'BusinessController@removeProduct')->name('removeProduct');
     });
     // Image
     Route::name('images.')->group(function () {
         Route::post('images', 'ImageController@store')->name('store');
         Route::post('images/update/{filename}', 'ImageController@update')->name('update');
         Route::get('images/f/{filename}', 'ImageController@showByFileName')->name('show');
-        // Route::get('images/{image}', 'ImageController@show')->name('show');
     });
     // Search
     Route::name('search.')->prefix('search')->group(function () {
         Route::get('categories', 'SearchController@listCategories')->name('listCategories');
+        Route::get('businesses/{category}', 'SearchController@listBusinessesInCategory')->name('listBusinessesCategories');
     });
 });

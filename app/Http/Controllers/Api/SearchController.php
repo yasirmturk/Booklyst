@@ -16,4 +16,9 @@ class SearchController extends Controller
         ];
         return $data;
     }
+
+    public function listBusinessesInCategory(Request $request, $category)
+    {
+        return Category::findOrFail($category)->businesses()->get();
+    }
 }

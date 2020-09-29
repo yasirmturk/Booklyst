@@ -19,7 +19,6 @@ class CreateBusinessesTable extends Migration
             $table->string('name');
             $table->tinyInteger('is_service');
             $table->tinyInteger('is_product');
-            $table->foreignId('image_id')->constrained();
             $table->timestamps();
         });
 
@@ -28,7 +27,6 @@ class CreateBusinessesTable extends Migration
             $table->string('name');
             $table->tinyInteger('is_service');
             $table->tinyInteger('is_product');
-            $table->foreignId('image_id')->constrained();
             $table->enum('type', Business::$types);
             $table->text('description')->nullable();
             $table->string('phone');

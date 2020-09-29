@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Product extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,7 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'is_service', 'is_product'
+        'name', 'business_id', 'price', 'discount', 'description'
     ];
 
     /**
@@ -21,7 +21,7 @@ class Category extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'business_id', 'created_at', 'updated_at',
     ];
 
     /**
@@ -30,14 +30,13 @@ class Category extends Model
     protected $with = ['images'];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * Get associated Business
+     * @return \App\Models\Business
      */
-    protected $casts = [
-        'is_service' => 'boolean',
-        'is_product' => 'boolean',
-    ];
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
 
     /**
      * Get the images
@@ -45,13 +44,5 @@ class Category extends Model
     public function images()
     {
         return $this->morphToMany(Image::class, 'imageable');
-    }
-
-    /**
-     * Get the associated Users.
-     */
-    public function businesses()
-    {
-        return $this->belongsToMany(Business::class)->withTimestamps();
     }
 }
