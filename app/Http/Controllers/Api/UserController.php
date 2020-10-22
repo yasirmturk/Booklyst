@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\User;
+use App\Traits\CloudUpload;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use CloudUpload;
     /**
      * Display the currency logged in user.
      *
@@ -59,7 +62,25 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+        $user = $request->user();
+        $user->name = $request->name;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = $file->hashName();
+            $url = $this->uploadToCloud($file, $filename);
+            $image = Image::create([
+                'filename' => $filename,
+                'url' => $url
+            ]);
+            $user->images()->save($image);
+        }
+
+        $user->save();
+        return $user;
     }
 
     /**

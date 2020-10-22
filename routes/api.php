@@ -32,6 +32,7 @@ Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->na
 Route::middleware('auth:api')->group(function () {
     // User profile
     Route::get('user', 'UserController@current');
+    Route::post('user', 'UserController@update')->name('update');
     // Logout
     Route::post('logout', 'AuthController@logout')->name('logout');
     // Management
@@ -57,5 +58,6 @@ Route::middleware('auth:api')->group(function () {
     Route::name('search.')->prefix('search')->group(function () {
         Route::get('categories', 'SearchController@listCategories')->name('listCategories');
         Route::get('businesses/{category}', 'SearchController@listBusinessesInCategory')->name('listBusinessesCategories');
+        Route::get('{productOrService}', 'SearchController@searchBusiness')->name('searchBusiness');
     });
 });
