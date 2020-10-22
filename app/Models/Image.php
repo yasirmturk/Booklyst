@@ -21,6 +21,14 @@ class Image extends Model //implements Castable
         'id', 'url', 'created_at', 'updated_at', 'pivot',
     ];
 
+    /**
+     * Get the owning imageable model.
+     */
+    public function imageable()
+    {
+        return $this->morphTo();
+    }
+
     // /**
     //  * Get the name of the caster class to use when casting from / to this cast target.
     //  *

@@ -34,6 +34,11 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * Also expand
+     */
+    protected $with = ['images'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -147,5 +152,13 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return $roles;
+    }
+
+    /**
+     * Get the images
+     */
+    public function images()
+    {
+        return $this->morphToMany(Image::class, 'imageable');
     }
 }
