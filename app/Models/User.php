@@ -94,6 +94,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get the wishlist.
+     */
+    public function wishlist()
+    {
+        return $this->hasMany(Wish::class);
+    }
+
+    /**
      * @param string $role
      * @return $this
      */
