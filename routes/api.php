@@ -60,4 +60,10 @@ Route::middleware('auth:api')->group(function () {
         Route::get('businesses/{category}', 'SearchController@listBusinessesInCategory')->name('listBusinessesCategories');
         Route::get('{productOrService}', 'SearchController@searchBusiness')->name('searchBusiness');
     });
+    // Wish list
+    Route::name('wishlist.')->prefix('wishlist')->group(function () {
+        Route::get('', 'WishController@index')->name('index');
+        Route::post('{productOrService}', 'WishController@addToWish')->name('addToWish');
+        Route::delete('{productOrService}', 'WishController@removeFromWish')->name('removeFromWish');
+    });
 });

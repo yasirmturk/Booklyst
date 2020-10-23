@@ -24,7 +24,7 @@ class UserController extends RegisterController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::orderBy('id', 'DESC')->get();
         return view('admin.settings.user')->with(compact('users', $users));

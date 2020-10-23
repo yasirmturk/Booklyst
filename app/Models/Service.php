@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\Wishable;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
+    use Wishable;
     /**
      * The attributes that are mass assignable.
      *
