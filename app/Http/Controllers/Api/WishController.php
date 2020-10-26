@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\Wish;
-use App\Traits\Wishable;
 use Illuminate\Http\Request;
-
-use function GuzzleHttp\Promise\all;
 
 class WishController extends Controller
 {
@@ -27,13 +24,13 @@ class WishController extends Controller
     {
         $user = $request->user();
         $productOrServiceId = $request->id;
-        if ($productOrService == 'service') {
+        if ($productOrService == 'service' && !$this->findWishForService($productOrServiceId, $user->id)) {
             $service = Service::findOrFail($productOrServiceId);
             $service->wishes()->create([
                 'user_id' => $user->id,
             ]);
             $service->save();
-        } else if ($productOrService == 'product') {
+        } else if ($productOrService == 'product' && !$this->findWishForProduct($productOrServiceId, $user->id)) {
             $product = Product::findOrFail($productOrServiceId);
             $product->wishes()->create([
                 'user_id' => $user->id,
@@ -48,9 +45,28 @@ class WishController extends Controller
         $user = $request->user();
         $productOrServiceId = $request->id;
         if ($productOrService == 'service') {
-            // Wish::delete(Wishable)
+            $this->findWishForService($productOrServiceId, $user->id)->delete();
         } else if ($productOrService == 'product') {
+            $this->findWishForProduct($productOrServiceId, $user->id)->delete();
         }
         return;
+    }
+
+    private function findWishForService(int $id, int $userId)
+    {
+        return Wish::where([
+            'wishable_type' => Service::class,
+            'wishable_id' => $id,
+            'user_id' => $userId,
+        ]);
+    }
+
+    private function findWishForProduct(int $id, int $userId)
+    {
+        return Wish::where([
+            'wishable_type' => Product::class,
+            'wishable_id' => $id,
+            'user_id' => $userId,
+        ]);
     }
 }
