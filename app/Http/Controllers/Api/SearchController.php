@@ -25,21 +25,26 @@ class SearchController extends Controller
 
     public function searchBusiness(Request $request, $productOrService)
     {
+        $user = $request->user();
         $searchPhrase = $request->q;
         $businesses = Business::where('name', 'like', "%$searchPhrase%")
             ->orWhere('description', 'like', "%$searchPhrase%")
+            // ->orWhere('services.name', 'like', "%$searchPhrase%")
+            // ->orWhere('products.name', 'like', "%$searchPhrase%")
             ->with(['services', 'products'])
+            // ->with(['services.wishes', 'products.wishes'])
+            // ->where('user_id', $user->id)
             ->get();
         $result = [];
         if (in_array($productOrService, ['all', 'service'])) {
-            $services = $businesses->pluck('services');
+            $services = $businesses->pluck('services')->collapse();
             $result['services'] = $services;
         }
         if (in_array($productOrService, ['all', 'product'])) {
-            $products = $businesses->pluck('products');
+            $products = $businesses->pluck('products')->collapse();
             $result['products'] = $products;
         }
-        // $result = ['services' => $services, 'products' => $products];
+
         return $result;
     }
 }
