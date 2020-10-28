@@ -19,6 +19,15 @@ class Booking extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'service_time' => 'datetime',
+    ];
+
+    /**
      * Get associated Service
      * @return \App\Models\User
      */
