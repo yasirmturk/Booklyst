@@ -23,7 +23,7 @@ class BookingController extends Controller
         $booking = Booking::create([
             'user_id' => $user->id,
             'service_id' => $service->id,
-            'service_time' => $request->time,
+            'service_time' => $request->service_time,
             'amount' => $amount,
             'status' => Booking::STATUS_BOOKED
         ]);
