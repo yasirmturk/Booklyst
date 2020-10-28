@@ -66,4 +66,9 @@ Route::middleware('auth:api')->group(function () {
         Route::post('{productOrService}', 'WishController@addToWish')->name('addToWish');
         Route::delete('{productOrService}', 'WishController@removeFromWish')->name('removeFromWish');
     });
+    // Booking
+    Route::name('booking.')->prefix('booking')->group(function () {
+        Route::get('', 'BookingController@index')->name('index');
+        Route::post('book', 'BookingController@book')->name('book');
+    });
 });
