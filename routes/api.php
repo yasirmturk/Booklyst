@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Business;
+use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,15 +41,29 @@ Route::middleware('auth:api')->group(function () {
     // Management
     Route::apiResource('users', 'UserController')->middleware('can:admin');
     // Business
-    Route::name('business.')->group(function () {
-        Route::post('businesses', 'BusinessController@register')->name('register');
-        Route::get('businesses', 'BusinessController@mine')->name('mine');
-        Route::get('businesses/{id}', 'BusinessController@find')->name('find');
-        Route::put('businesses/{id}', 'BusinessController@update')->name('update');
-        Route::post('businesses/{id}/services', 'BusinessController@addService')->name('addService');
-        Route::post('businesses/{id}/products', 'BusinessController@addProduct')->name('addProduct');
-        Route::delete('businesses/services/{id}', 'BusinessController@removeService')->name('removeService');
-        Route::delete('businesses/products/{id}', 'BusinessController@removeProduct')->name('removeProduct');
+    Route::model('business', Business::class);
+    Route::name('business.')->prefix('businesses')->group(function () {
+        Route::get('', 'BusinessController@mine')->name('mine');
+        Route::get('{business}', 'BusinessController@find')->name('find');
+        Route::post('', 'BusinessController@register')->name('register');
+        Route::put('{business}', 'BusinessController@update')->name('update');
+        Route::post('{business}/images', 'BusinessController@addImage')->name('addImage');
+        Route::delete('{business}/images', 'BusinessController@removeImage')->name('removeImage');
+        Route::post('{business}/services', 'BusinessController@addService')->name('addService');
+        Route::post('{business}/products', 'BusinessController@addProduct')->name('addProduct');
+        Route::delete('services/{id}', 'BusinessController@removeService')->name('removeService');
+        Route::delete('products/{id}', 'BusinessController@removeProduct')->name('removeProduct');
+    });
+    // Service
+    Route::model('service', Service::class);
+    Route::name('service.')->group(function () {
+        Route::post('services/{service}/images', 'ServiceController@addImage')->name('addImage');
+    });
+    // Product
+    Route::model('product', Product::class);
+    Route::name('product.')->group(function () {
+        Route::post('products/{product}/images', 'ProductController@addImage')->name('addImage');
+        Route::delete('products/{product}/images', 'ProductController@removeImage')->name('removeImage');
     });
     // Image
     Route::name('images.')->group(function () {
