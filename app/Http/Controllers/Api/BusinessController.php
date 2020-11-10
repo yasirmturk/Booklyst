@@ -16,7 +16,9 @@ class BusinessController extends Controller
         $data = $this->validateBusiness($request);
         $business = Business::create($data);
         $business->users()->save($user);
-        return $business->save();
+        $business->categories()->attach($request->categories);
+        $business->save();
+        return $business;
     }
 
     public function mine(Request $request)
@@ -106,6 +108,7 @@ class BusinessController extends Controller
             'employee_count' => 'integer',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|min:7|max:15',
+            'categories' => 'required|array|size:1'
         ]);
     }
 }

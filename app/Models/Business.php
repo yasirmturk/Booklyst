@@ -46,11 +46,15 @@ class Business extends Model
     protected $with = ['images', 'addresses'];
 
     /**
-     * The accessors to append to the model's array form.
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
-    // protected $appends = ['images'];
+    protected $casts = [
+        'is_service' => 'boolean',
+        'is_product' => 'boolean',
+        'employee_count' => 'int'
+    ];
 
     /**
      * Get the images
