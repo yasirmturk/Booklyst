@@ -24,13 +24,13 @@ class WishController extends Controller
     {
         $user = $request->user();
         $productOrServiceId = $request->id;
-        if ($productOrService == 'service' && !$this->findWishForService($productOrServiceId, $user->id)) {
+        if ($productOrService == 'service' && $this->findWishForService($productOrServiceId, $user->id)->doesntExist()) {
             $service = Service::findOrFail($productOrServiceId);
             $service->wishes()->create([
                 'user_id' => $user->id,
             ]);
             $service->save();
-        } else if ($productOrService == 'product' && !$this->findWishForProduct($productOrServiceId, $user->id)) {
+        } else if ($productOrService == 'product' && $this->findWishForProduct($productOrServiceId, $user->id)->doesntExist()) {
             $product = Product::findOrFail($productOrServiceId);
             $product->wishes()->create([
                 'user_id' => $user->id,
