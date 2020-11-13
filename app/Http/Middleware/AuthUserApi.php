@@ -18,9 +18,13 @@ class AuthUserApi
     {
         $response = $next($request);
         if ($response->isOk()) {
+            $user = $request->user();
+            $customer = $user->createOrGetStripeCustomer();
             $response->setContent([
                 'token' => json_decode($response->getContent()),
-                'user' => $request->user()
+                'user' => $user,
+                // 'customer' => $customer,
+                'subscriptions' => $customer->subscriptions->data
             ]);
         }
         return $response;
