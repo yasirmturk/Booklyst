@@ -19,6 +19,9 @@ class BusinessController extends Controller
         $user = $request->user();
         $data = $this->validateBusiness($request);
         $business = Business::create($data);
+        if ($request->has('description')) {
+            $business->description = $request->description;
+        }
         $business->users()->save($user);
         $business->categories()->attach($request->categories);
         $business->save();
@@ -27,7 +30,10 @@ class BusinessController extends Controller
 
     public function mine(Request $request)
     {
-        return $request->user()->businesses()->get();
+        $user = $request->user();
+        return $user->businesses()
+            ->with(['categories', 'products', 'services'])
+            ->get();
     }
 
     public function find(Request $request, Business $business)
