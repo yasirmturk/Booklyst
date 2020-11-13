@@ -22,6 +22,7 @@ class AuthController extends RegisterController
      */
     protected function registered(Request $request, $user)
     {
+        $stripeCustomer = $user->createAsStripeCustomer();
         $request->merge([
             'grant_type' => 'password',
             'scope' => '*',

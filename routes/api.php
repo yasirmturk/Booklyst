@@ -33,9 +33,14 @@ Route::post('password/reset', 'ForgotPasswordController@sendResetLinkEmail')->na
 
 // Protected routes
 Route::middleware('auth:api')->group(function () {
-    // User profile
-    Route::get('user', 'UserController@current');
-    Route::post('user', 'UserController@update')->name('update');
+    // User
+    Route::name('user.')->prefix('user')->group(function () {
+        Route::get('', 'UserController@current');
+        Route::post('', 'UserController@update')->name('update');
+        Route::get('stripe', 'UserController@stripe')->name('stripe');
+        Route::post('stripe', 'UserController@addStripeMethod')->name('addStripeMethod');
+        Route::get('provider', 'UserController@provider')->name('provider');
+    });
     // Logout
     Route::post('logout', 'AuthController@logout')->name('logout');
     // Management

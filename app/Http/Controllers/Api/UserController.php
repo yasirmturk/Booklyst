@@ -7,10 +7,14 @@ use App\Models\Image;
 use App\Models\User;
 use App\Traits\CloudUpload;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Cashier;
+use Stripe\EphemeralKey;
+use Stripe\PaymentIntent;
 
 class UserController extends Controller
 {
     use CloudUpload;
+
     /**
      * Display the currency logged in user.
      *
@@ -18,8 +22,65 @@ class UserController extends Controller
      */
     public function current(Request $request)
     {
-        return $request->user();
+        $user = $request->user();
+        $customer = $user->createOrGetStripeCustomer();
+        $paymentMethods = $user->paymentMethods();
+        $user->updateDefaultPaymentMethodFromStripe();
+        $paymentMethod = $user->defaultPaymentMethod();
+        return array_merge($user->toArray(), [
+            // 'customer' => $customer,
+            'subscriptions' => $customer->subscriptions->data,
+            'paymentMethods' => $paymentMethods,
+            'defaultMethod' => $paymentMethod
+        ]);
     }
+
+    /**
+     * Get the stripe for logged in user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function stripe(Request $request)
+    {
+        $customer = $request->user()->createOrGetStripeCustomer();
+        $params = Cashier::stripeOptions();
+        $key = EphemeralKey::create(
+            ['customer' => $customer->id],
+            $params
+        );
+        return $key;
+    }
+
+    public function addStripeMethod(Request $request)
+    {
+        $request->validate([
+            'paymentMethod' => 'required|string',
+        ]);
+        $user = $request->user();
+        $paymentMethod = $request->paymentMethod;
+        $user->addPaymentMethod($paymentMethod);
+        $user->updateDefaultPaymentMethod($paymentMethod);
+        return $user;
+    }
+
+    /**
+     * Get the provider subscription for logged in user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function provider(Request $request)
+    {
+        $customer = $request->user()->createOrGetStripeCustomer();
+        $providerPriceId = env('PROVIDER_PRICE_ID', false);
+        $params = Cashier::stripeOptions();
+        $intent = PaymentIntent::create([
+            ['customer' => $customer->id, 'price' => $providerPriceId],
+            $params
+        ]);
+        $client_secret = $intent->client_secret;
+        return $client_secret;
+    }
+
     /**
      * Display a listing of the resource.
      *
