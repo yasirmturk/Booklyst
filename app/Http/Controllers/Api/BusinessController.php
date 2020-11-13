@@ -32,7 +32,7 @@ class BusinessController extends Controller
     {
         $user = $request->user();
         return $user->businesses()
-            ->with(['categories', 'products', 'services'])
+            ->with(['categories:categories.id,name', 'products', 'services'])
             ->get();
     }
 
