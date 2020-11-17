@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', 'AdminController@index');
+Route::get('', 'AdminController@index')->name('index');
 Route::name('settings.')->prefix('settings')->group(function () {
     Route::resource('users', 'UserController')->only(['index', 'store', 'destroy']);
     Route::resource('categories', 'CategoryController')->only(['index', 'store', 'destroy']);
-    // Route::get('category', 'CategoryController@index')->name('category');
+    Route::resource('businesses', 'BusinessController')->only(['index', 'store', 'destroy']);
 });

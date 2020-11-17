@@ -1,7 +1,5 @@
 @extends('admin.layouts.app')
 @section('content')
-<!-- Main content -->
-<div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -19,26 +17,31 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             @foreach ($categories as $category)
-                            <li class="list-group-item row">
-                                <form action="{{ route('admin.settings.categories.destroy', $category->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="close" aria-label="Delete"><span aria-hidden="true">&times;</span></button>
-                                </form>
-                                <h5 class="col-6">{{ $category->name }}
-                                    <small>
-                                        <div class="icheck-primary d-inline">
-                                            <input type="checkbox" id="checkboxService" disabled {{ $category->is_service ? 'checked':'' }}>
-                                            <label for="checkboxServices">Service</label>
-                                        </div>
-                                        <div class="icheck-primary d-inline">
-                                            <input type="checkbox" id="checkboxProduct" disabled {{ $category->is_product ? 'checked':'' }}>
-                                            <label for="checkboxProduct">Product</label>
-                                        </div>
-                                    </small>
-                                </h5>
-                                <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;" src="/images/s/{{ $category->images->first()['filename'] }}" />
-                            </li>
+                                <li class="list-group-item row">
+                                    <form action="{{ route('admin.settings.categories.destroy', $category->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="close" aria-label="Delete"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    </form>
+                                    <h5 class="col-6">{{ $category->name }}
+                                        <small>
+                                            <div class="icheck-primary d-inline">
+                                                <input type="checkbox" id="checkboxService" disabled
+                                                    {{ $category->is_service ? 'checked' : '' }}>
+                                                <label for="checkboxServices">Service</label>
+                                            </div>
+                                            <div class="icheck-primary d-inline">
+                                                <input type="checkbox" id="checkboxProduct" disabled
+                                                    {{ $category->is_product ? 'checked' : '' }}>
+                                                <label for="checkboxProduct">Product</label>
+                                            </div>
+                                        </small>
+                                    </h5>
+                                    <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;"
+                                        src="/images/s/{{ $category->images->first()['filename'] }}" />
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -97,6 +100,4 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-</div>
-<!-- /.content -->
 @endsection
