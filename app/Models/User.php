@@ -170,11 +170,25 @@ class User extends Authenticatable implements MustVerifyEmail
         return $roles;
     }
 
+    public function isProvider()
+    {
+        return $this->hasRole(Permissions::ROLE_PROVIDER);
+    }
+
     /**
      * Get the images
      */
     public function images()
     {
         return $this->morphToMany(Image::class, 'imageable');
+    }
+
+    public function dp($appendingPath = '')
+    {
+        $image = $this->images->first();
+        if ($image) {
+            return $appendingPath . $image['filename'];
+        }
+        return null;
     }
 }

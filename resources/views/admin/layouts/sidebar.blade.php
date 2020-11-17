@@ -60,13 +60,44 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-header">SETTINGS</li>
+                <li class="nav-header">SYSTEM</li>
                 <li class="nav-item">
                     <a href="{{ route('admin.settings.users.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Users<span class="badge badge-info right">99+</span></p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.businesses.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-briefcase"></i>
+                        <p>Businesses<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-spray-can"></i>
+                        <p>Products<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-spa"></i>
+                        <p>Services<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-basket"></i>
+                        <p>Orders<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-pound-sign"></i>
+                        <p>Payments<span class="badge badge-info right">99+</span></p>
+                    </a>
+                </li>
+                <li class="nav-header">SETTINGS</li>
                 <li class="nav-item">
                     <a href="{{ route('admin.settings.categories.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>

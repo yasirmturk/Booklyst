@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class UserController extends RegisterController
 {
-
     /**
      * Create a new controller instance.
      *
@@ -96,8 +95,15 @@ class UserController extends RegisterController
      */
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('admin.settings.users.index')
-            ->with('success', 'User deleted successfully');
+        if ($user->businesses()->count() > 0) {
+            $warning = 'User has one or more businesses. Please delete them first.';
+            return back()
+                ->with('warning', $warning);
+        } else {
+            $user->delete();
+            return back()
+                // return redirect()->route('admin.settings.users.index')
+                ->with('success', 'User deleted successfully');
+        }
     }
 }
