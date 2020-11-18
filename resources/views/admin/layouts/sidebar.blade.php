@@ -45,13 +45,13 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.businesses.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-briefcase"></i>
+                        <i class="nav-icon fas fa-spray-can"></i>
                         <p>Businesses<span class="badge badge-info right">99+</span></p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.products.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-spray-can"></i>
+                        <i class="nav-icon fas fa-barcode"></i>
                         <p>Products<span class="badge badge-info right">99+</span></p>
                     </a>
                 </li>

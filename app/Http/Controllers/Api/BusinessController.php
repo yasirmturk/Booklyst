@@ -51,7 +51,10 @@ class BusinessController extends Controller
         $data = $this->validateBusiness($request);
         // $business = Business::findOrFail($id);
         $business->update($data);
+        $business->categories()->sync($request->categories);
+        // $business->categories()->syncWithoutDetaching($request->categories);
         $business->save();
+        $business->categories = $business->categories;
         return $business;
     }
 
@@ -118,6 +121,9 @@ class BusinessController extends Controller
         $data = $this->validateProduct($request);
         $data['business_id'] = $business->id;
         $product = Product::create($data);
+        if ($request->has('description')) {
+            $product->description = $request->description;
+        }
         $business->products()->save($product);
         return $product;
     }
@@ -159,7 +165,7 @@ class BusinessController extends Controller
             'employee_count' => 'integer',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|min:7|max:15',
-            'categories' => 'required|array|size:1'
+            'categories' => 'required|array|min:1'
         ]);
     }
 }
