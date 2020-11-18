@@ -56,14 +56,6 @@ class Business extends Model
         'employee_count' => 'int'
     ];
 
-    /**
-     * Get the images
-     */
-    public function images()
-    {
-        return $this->morphToMany(Image::class, 'imageable');
-    }
-
     public function dp($appendingPath = '')
     {
         $image = $this->images->first();
@@ -71,6 +63,23 @@ class Business extends Model
             return $appendingPath . $image->filename;
         }
         return null;
+    }
+
+    public function address()
+    {
+        $address = $this->addresses()->first();
+        if ($address) {
+            return $address->street . ', ' . $address->city . ', ' . $address->country;
+        }
+        return null;
+    }
+
+    /**
+     * Get the images
+     */
+    public function images()
+    {
+        return $this->morphToMany(Image::class, 'imageable');
     }
 
     /**

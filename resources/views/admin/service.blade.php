@@ -9,6 +9,10 @@
                     <div class="row">
                         <div class="col">
                             {{ $service->name }}
+                            <a class="btn btn-app">
+                                <span class="badge bg-teal">67</span>
+                                <i class="fas fa-inbox"></i> Orders
+                            </a>
                         </div>
                     </div>
                 </li>

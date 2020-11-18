@@ -10,16 +10,43 @@
                         <div class="col-2">
                             <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;" src="{{ $business->dp('/images/s/') ?? asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" />
                         </div>
-                        <div class="col-6">
+                        <div class="col">
                             <h5>{{ $business->name }}
-                                @if ($business->is_service) <span class="badge badge-info"><i class="fa fa-check"></i>
-                                    Service
-                                </span> @endif
-                                @if ($business->is_product) <span class="badge badge-info"><i class="fa fa-check"></i>
-                                    Product
-                                </span> @endif
-                                </small>
+                                <small><i class="fas fa-phone-square"></i> {{ $business->phone }} <i class="fas fa-map-marked"></i> {{ $business->address() }}</small>
                             </h5>
+                            <p>
+                                <span class="badge bg-olive"><i class="fas fa-briefcase"></i>
+                                    {{ $business->type }}
+                                </span>
+                                @if ($business->is_service)
+                                <span class="badge bg-purple"><i class="fa fa-check"></i>
+                                    Service
+                                </span>
+                                @endif
+                                @if ($business->is_product)
+                                <span class="badge bg-purple"><i class="fa fa-check"></i>
+                                    Product
+                                </span>
+                                @endif
+                                @foreach ($business->categories as $category)
+                                <span class="badge bg-olive">{{ $category->name }}</span>
+                                @endforeach
+                            </p>
+                            <p>
+                                <a class="btn btn-app">
+                                    <span class="badge bg-olive">{{ $business->employee_count }}</span>
+                                    <i class="fas fa-user-friends"></i>Employees
+                                </a>
+                                <a class="btn btn-app">
+                                    <span class="badge bg-olive">{{ $business->products()->count() }}</span>
+                                    <i class="fas fa-barcode"></i>Products
+                                </a>
+                                <a class="btn btn-app">
+                                    <span class="badge bg-olive">{{ $business->services()->count() }}</span>
+                                    <i class="fas fa-spa"></i>Services
+                                </a>
+                            </p>
+                            <p>{{ $business->description }}</p>
                         </div>
                         <form action="{{ route('admin.businesses.destroy', $business->id) }}" method="POST">
                             @csrf
