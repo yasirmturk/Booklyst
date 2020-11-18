@@ -12,8 +12,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('', 'AdminController@index')->name('index');
+Route::resource('users', 'UserController')->only(['index', 'store', 'destroy']);
+Route::resource('businesses', 'BusinessController')->only(['index', 'store', 'destroy']);
+Route::resource('products', 'ProductController')->only(['index', 'store', 'destroy']);
+Route::resource('services', 'ServiceController')->only(['index', 'store', 'destroy']);
 Route::name('settings.')->prefix('settings')->group(function () {
-    Route::resource('users', 'UserController')->only(['index', 'store', 'destroy']);
     Route::resource('categories', 'CategoryController')->only(['index', 'store', 'destroy']);
-    Route::resource('businesses', 'BusinessController')->only(['index', 'store', 'destroy']);
 });

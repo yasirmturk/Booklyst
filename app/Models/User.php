@@ -187,7 +187,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $image = $this->images->first();
         if ($image) {
-            return $appendingPath . $image['filename'];
+            return $appendingPath . $image->filename;
         }
         return null;
     }

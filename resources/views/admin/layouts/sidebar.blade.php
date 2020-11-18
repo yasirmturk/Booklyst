@@ -25,62 +25,38 @@
                 <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link active">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                        <p>Home<i class="right fas fa-angle-left"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link active">
+                            <a href="{{ route('admin.index') }}" class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v2</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v3</p>
+                                <p>Dashboard</p>
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Widgets
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-header">SYSTEM</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings.users.index') }}" class="nav-link">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Users<span class="badge badge-info right">99+</span></p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings.businesses.index') }}" class="nav-link">
+                    <a href="{{ route('admin.businesses.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>Businesses<span class="badge badge-info right">99+</span></p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.index') }}" class="nav-link">
+                    <a href="{{ route('admin.products.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-spray-can"></i>
                         <p>Products<span class="badge badge-info right">99+</span></p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.index') }}" class="nav-link">
+                    <a href="{{ route('admin.services.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-spa"></i>
                         <p>Services<span class="badge badge-info right">99+</span></p>
                     </a>
@@ -102,6 +78,16 @@
                     <a href="{{ route('admin.settings.categories.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
                         <p>Categories<span class="badge badge-info right">2</span></p>
+                    </a>
+                </li>
+                <li class="nav-header">DEMO</li>
+                <li class="nav-item">
+                    <a href="pages/widgets.html" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Widgets
+                            <span class="right badge badge-danger">New</span>
+                        </p>
                     </a>
                 </li>
             </ul>

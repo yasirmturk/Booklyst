@@ -16,7 +16,7 @@ class BusinessController extends Controller
     public function index(Request $request)
     {
         $businesses = Business::orderBy('id', 'DESC')->get();
-        return view('admin.settings.business')->with(compact('businesses', $businesses));
+        return view('admin.business')->with(compact('businesses', $businesses));
     }
 
     /**
