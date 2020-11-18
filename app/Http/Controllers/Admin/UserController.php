@@ -26,7 +26,7 @@ class UserController extends RegisterController
     public function index(Request $request)
     {
         $users = User::orderBy('id', 'DESC')->get();
-        return view('admin.settings.user')->with(compact('users', $users));
+        return view('admin.user')->with(compact('users', $users));
     }
 
     /**
@@ -38,7 +38,7 @@ class UserController extends RegisterController
      */
     protected function registered(Request $request, $user)
     {
-        return redirect()->route('admin.settings.users.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User registered successfully');
     }
 

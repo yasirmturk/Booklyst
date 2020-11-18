@@ -35,7 +35,7 @@
                                         @endif
                                     </div>
                                     <div class="col-3">
-                                        <form action="{{ route('admin.settings.users.destroy', $user->id) }}" method="POST">
+                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -65,7 +65,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form method="POST" action="{{ route('admin.settings.users.store') }}">
+                <form method="POST" action="{{ route('admin.users.store') }}">
                     @csrf
                     <div class="modal-body">
                         <p>Enter the details&hellip;</p>

@@ -64,6 +64,15 @@ class Business extends Model
         return $this->morphToMany(Image::class, 'imageable');
     }
 
+    public function dp($appendingPath = '')
+    {
+        $image = $this->images->first();
+        if ($image) {
+            return $appendingPath . $image->filename;
+        }
+        return null;
+    }
+
     /**
      * Get the business categories.
      */
