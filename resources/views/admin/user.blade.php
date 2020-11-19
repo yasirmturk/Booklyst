@@ -19,22 +19,48 @@
                                 <div class="col-1">
                                     <img src="{{ $user->dp('/images/s/') ?? asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" class="img-rounded img-size-64" title="User Picture" />
                                 </div>
-                                <div class="col-8">
+                                <div class="col-9">
                                     <h5>{{ $user->name }}
                                         <small>{{ $user->email }}
-                                            @if ($e = $user->email_verified_at) <i title="Verified" class="fas fa-check-circle"></i> @endif
+                                            @if ($e = $user->email_verified_at) <i title="Verified" class="fas fa-check-circle text-success"></i> @endif
                                         </small>
                                     </h5>
-                                    @if ($user->isProvider()) <span class="badge bg-olive">Provider</span> @endif
-                                    @if ($user->stripe_id) <i class="fab fa-lg fa-cc-stripe text-info"></i> @endif
-                                    @if ($card = $user->card_last_four)
-                                    <span class="badge badge-info">
-                                        @if ($cc = $user->card_brand) <i class="fab fa-lg fa-cc-{{$cc}}"></i> @endif
-                                        {{$card}}
-                                    </span>
-                                    @endif
+                                    <p>
+                                        @if ($user->isProvider()) <span class="badge bg-olive">Provider</span> @endif
+                                        @if ($user->stripe_id) <i class="fab fa-lg fa-cc-stripe text-info"></i> @endif
+                                        @if ($card = $user->card_last_four)
+                                        <span class="badge badge-info">
+                                            @if ($cc = $user->card_brand) <i class="fab fa-lg fa-cc-{{$cc}}"></i> @endif
+                                            {{$card}}
+                                        </span>
+                                        @endif
+                                    </p>
+                                    <p>
+                                        <a class="btn btn-app">
+                                            <span class="badge bg-olive">{{ $user->socialAccounts()->count() }}</span>
+                                            <i class="fas fa-user-plus"></i>Social Accounts
+                                        </a>
+                                        <a class="btn btn-app">
+                                            <span class="badge bg-olive">{{ $user->wishlist()->count() }}</span>
+                                            <i class="fas fa-star"></i>Wishlist
+                                        </a>
+                                        <a class="btn btn-app">
+                                            <span class="badge bg-olive">{{ 0 }}</span>
+                                            <i class="fas fa-inbox"></i>Orders
+                                        </a>
+                                        <a class="btn btn-app">
+                                            <span class="badge bg-olive">{{ $user->bookings()->count() }}</span>
+                                            <i class="fas fa-calendar-check"></i>Bookings
+                                        </a>
+                                        @if ($user->isProvider())
+                                        <a class="btn btn-app">
+                                            <span class="badge bg-olive">{{ $user->businesses()->count() }}</span>
+                                            <i class="fas fa-spray-can"></i>Businesses
+                                        </a>
+                                        @endif
+                                    </p>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')

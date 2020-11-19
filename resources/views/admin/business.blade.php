@@ -8,7 +8,7 @@
                 <li class="list-group-item">
                     <div class="row">
                         <div class="col-2">
-                            <img class="img-thumbnail rounded w-100" style="object-fit: cover; height: 200px;" src="{{ $business->dp('/images/s/') ?? asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" />
+                            <img class="img-thumbnail rounded w-100" style="object-fit: cover;" src="{{ $business->dp('/images/s/') ?? asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" />
                         </div>
                         <div class="col">
                             <h5>{{ $business->name }}
