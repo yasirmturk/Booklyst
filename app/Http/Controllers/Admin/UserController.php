@@ -15,7 +15,7 @@ class UserController extends RegisterController
      */
     public function __construct()
     {
-        //
+        // Override to prevent guest middleware
     }
 
     /**
@@ -26,7 +26,8 @@ class UserController extends RegisterController
     public function index(Request $request)
     {
         $users = User::orderBy('id', 'DESC')->get();
-        return view('admin.user')->with(compact('users', $users));
+        return view('admin.user')
+            ->with(compact('users', $users));
     }
 
     /**

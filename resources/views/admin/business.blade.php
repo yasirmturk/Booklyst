@@ -37,11 +37,11 @@
                                     <span class="badge bg-olive">{{ $business->employee_count }}</span>
                                     <i class="fas fa-user-friends"></i>Employees
                                 </a>
-                                <a class="btn btn-app">
+                                <a class="btn btn-app" href="{{ route('admin.businesses.products.index', ['business' => $business->id]) }}">
                                     <span class="badge bg-olive">{{ $business->products()->count() }}</span>
                                     <i class="fas fa-barcode"></i>Products
                                 </a>
-                                <a class="btn btn-app">
+                                <a class="btn btn-app" href="{{ route('admin.businesses.services.index', ['business' => $business->id]) }}">
                                     <span class="badge bg-olive">{{ $business->services()->count() }}</span>
                                     <i class="fas fa-spa"></i>Services
                                 </a>
