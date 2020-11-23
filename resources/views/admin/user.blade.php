@@ -53,7 +53,7 @@
                                             <i class="fas fa-calendar-check"></i>Bookings
                                         </a>
                                         @if ($user->isProvider())
-                                        <a class="btn btn-app">
+                                        <a class="btn btn-app" href="{{ route('admin.users.businesses.index', ['user' => $user->id]) }}">
                                             <span class="badge bg-olive">{{ $user->businesses()->count() }}</span>
                                             <i class="fas fa-spray-can"></i>Businesses
                                         </a>

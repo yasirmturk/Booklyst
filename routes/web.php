@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Root
-Route::get('', 'Controller@index');
+Route::get('', 'Controller@welcome');
 Route::get('ping', 'Controller@ping');
 // Static
 Route::get('images/s/{filename}', 'Api\ImageController@showByFileName');
