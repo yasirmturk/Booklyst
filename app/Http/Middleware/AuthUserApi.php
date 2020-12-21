@@ -22,8 +22,9 @@ class AuthUserApi
             $customer = $user->createOrGetStripeCustomer();
             $response->setContent([
                 'token' => json_decode($response->getContent()),
-                'user' => $user,
-                // 'customer' => $customer,
+                'user' => array_merge($user->toArray(), [
+                    'hasPaymentMethod' => $user->hasPaymentMethod()
+                ]),
                 'subscriptions' => $customer->subscriptions->data
             ]);
         }
