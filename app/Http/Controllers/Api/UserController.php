@@ -23,7 +23,8 @@ class UserController extends Controller
     public function current(Request $request)
     {
         $user = $request->user();
-        $customer = $user->createOrGetStripeCustomer();
+        // $customer = $user->createOrGetStripeCustomer();
+        $customer = $user->updateStripeCustomer();
         $paymentMethods = $user->paymentMethods();
         $user->updateDefaultPaymentMethodFromStripe();
         $paymentMethod = $user->defaultPaymentMethod();
@@ -31,7 +32,9 @@ class UserController extends Controller
             // 'customer' => $customer,
             'subscriptions' => $customer->subscriptions->data,
             'paymentMethods' => $paymentMethods,
-            'defaultMethod' => $paymentMethod
+            'defaultMethod' => $paymentMethod,
+            'hasPaymentMethod' => $user->hasPaymentMethod(),
+            'sources' => $customer->sources->data,
         ]);
     }
 
