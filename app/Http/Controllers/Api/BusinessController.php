@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Business;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Schedule;
 use App\Models\Service;
 use App\Traits\CloudUpload;
 use Illuminate\Http\Request;
@@ -134,6 +135,29 @@ class BusinessController extends Controller
         $product->business()->dissociate();
         $product->delete();
         return true;
+    }
+
+    /**
+     * Update the specified schedule for business.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Business $business
+     * @return \Illuminate\Http\Response
+     */
+    public function addSchedule(Request $request, Business $business)
+    {
+        $data = $request->validate(Schedule::rules());
+        $business->schedule()->delete();
+        $business->schedule()->create($data);
+        $business->refresh();
+        return $business;
+    }
+
+    public function removeSchedule(Request $request, Business $business)
+    {
+        $business->schedule()->delete();
+        $business->refresh();
+        return $business;
     }
 
     private function validateService(Request $request)
