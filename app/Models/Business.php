@@ -43,7 +43,7 @@ class Business extends Model
     /**
      * Also expand
      */
-    protected $with = ['images', 'addresses'];
+    protected $with = ['images', 'addresses', 'schedule'];
 
     /**
      * The attributes that should be cast to native types.
@@ -112,5 +112,13 @@ class Business extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Get the schedule.
+     */
+    public function schedule()
+    {
+        return $this->morphOne(Schedule::class, 'scheduleable');
     }
 }

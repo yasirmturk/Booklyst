@@ -58,6 +58,8 @@ Route::middleware('auth:api')->group(function () {
         Route::post('{business}/products', 'BusinessController@addProduct')->name('addProduct');
         Route::delete('services/{id}', 'BusinessController@removeService')->name('removeService');
         Route::delete('products/{id}', 'BusinessController@removeProduct')->name('removeProduct');
+        Route::post('{business}/schedules', 'BusinessController@addSchedule')->name('addSchedule');
+        Route::delete('{business}/schedules', 'BusinessController@removeSchedule')->name('removeSchedule');
     });
     // Service
     Route::model('service', Service::class);
