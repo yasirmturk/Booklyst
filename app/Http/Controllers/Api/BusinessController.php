@@ -137,6 +137,11 @@ class BusinessController extends Controller
         return true;
     }
 
+    public function getSchedule(Request $request, Business $business)
+    {
+        return $business->schedule;
+    }
+
     /**
      * Update the specified schedule for business.
      *

@@ -58,13 +58,17 @@ Route::middleware('auth:api')->group(function () {
         Route::post('{business}/products', 'BusinessController@addProduct')->name('addProduct');
         Route::delete('services/{id}', 'BusinessController@removeService')->name('removeService');
         Route::delete('products/{id}', 'BusinessController@removeProduct')->name('removeProduct');
+        Route::get('{business}/schedules', 'BusinessController@getSchedule')->name('getSchedule');
         Route::post('{business}/schedules', 'BusinessController@addSchedule')->name('addSchedule');
         Route::delete('{business}/schedules', 'BusinessController@removeSchedule')->name('removeSchedule');
     });
     // Service
     Route::model('service', Service::class);
-    Route::name('service.')->group(function () {
-        Route::post('services/{service}/images', 'ServiceController@addImage')->name('addImage');
+    Route::name('service.')->prefix('services')->group(function () {
+        Route::post('{service}/images', 'ServiceController@addImage')->name('addImage');
+        Route::get('{service}/schedules', 'ServiceController@getSchedule')->name('getSchedule');
+        Route::get('{service}/bookings/{date?}', 'ServiceController@getBookings')->name('getBookings');
+        Route::get('{service}/slots/{date?}', 'ServiceController@getSlots')->name('getSlots');
     });
     // Product
     Route::model('product', Product::class);

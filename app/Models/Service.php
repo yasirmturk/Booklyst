@@ -34,4 +34,20 @@ class Service extends Model
     {
         return $this->belongsTo(Business::class);
     }
+
+    /**
+     * Get the schedule.
+     */
+    public function schedule()
+    {
+        return $this->morphOne(Schedule::class, 'scheduleable');
+    }
+
+    /**
+     * Get the bookings
+     */
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
