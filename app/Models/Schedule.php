@@ -37,12 +37,26 @@ class Schedule extends Model
      */
     protected $casts = [
         'mon' => 'boolean',
+        'mon_start' => 'datetime:H:i',
+        'mon_stop' => 'datetime:H:i',
         'tue' => 'boolean',
+        'tue_start' => 'datetime:H:i',
+        'tue_stop' => 'datetime:H:i',
         'wed' => 'boolean',
+        'wed_start' => 'datetime:H:i',
+        'wed_stop' => 'datetime:H:i',
         'thu' => 'boolean',
+        'thu_start' => 'datetime:H:i',
+        'thu_stop' => 'datetime:H:i',
         'fri' => 'boolean',
+        'fri_start' => 'datetime:H:i',
+        'fri_stop' => 'datetime:H:i',
         'sat' => 'boolean',
+        'sat_start' => 'datetime:H:i',
+        'sat_stop' => 'datetime:H:i',
         'sun' => 'boolean',
+        'sun_start' => 'datetime:H:i',
+        'sun_stop' => 'datetime:H:i',
     ];
 
     /**
