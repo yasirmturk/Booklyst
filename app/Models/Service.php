@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Schedulable;
 use App\Traits\Wishable;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    use Wishable;
+    use Wishable, Schedulable;
     /**
      * The attributes that are mass assignable.
      *
@@ -33,14 +34,6 @@ class Service extends Model
     public function business()
     {
         return $this->belongsTo(Business::class);
-    }
-
-    /**
-     * Get the schedule.
-     */
-    public function schedule()
-    {
-        return $this->morphOne(Schedule::class, 'scheduleable');
     }
 
     /**

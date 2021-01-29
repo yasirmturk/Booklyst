@@ -10,11 +10,7 @@ class Wish extends Model
     /**
      * {@inheritdoc}
      */
-    protected $fillable = [
-        'wishable_id',
-        'wishable_type',
-        'user_id',
-    ];
+    protected $fillable = ['wishable_id', 'wishable_type', 'user_id'];
 
     /**
      * {@inheritdoc}

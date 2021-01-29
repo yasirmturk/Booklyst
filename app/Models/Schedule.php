@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
 {
     use SoftDeletes;
 
-    /* Fillable */
+    /**
+     * {@inheritdoc}
+     */
     protected $fillable = [
         'mon', 'mon_start', 'mon_stop',
         'tue', 'tue_start', 'tue_stop',
@@ -21,19 +24,15 @@ class Schedule extends Model
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $hidden = [
-        'id', 'scheduleable_type', 'scheduleable_id',
+        'id', 'schedulable_type', 'schedulable_id',
         'created_at', 'updated_at', 'deleted_at',
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'mon' => 'boolean',
@@ -60,7 +59,7 @@ class Schedule extends Model
     ];
 
     /**
-     * Rules
+     * Validation rules
      * @return array
      */
     protected static function rules()
@@ -93,7 +92,7 @@ class Schedule extends Model
     /**
      * Get the owning scheduleable model.
      */
-    public function scheduleable()
+    public function scheduleable(): MorphTo
     {
         return $this->morphTo();
     }

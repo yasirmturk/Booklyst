@@ -33,6 +33,7 @@ class ServiceController extends Controller
         $date = $this->validateDate($date);
         $bookings = $service->bookings()
             ->whereDate('service_time', $date)
+            ->whereIsCancelled(false)
             ->orderBy('service_time')
             ->get();
         return [
@@ -62,6 +63,7 @@ class ServiceController extends Controller
         // Service bookings
         $bookings = $service->bookings()
             ->whereDate('service_time', $date)
+            ->whereIsCancelled(false)
             ->orderBy('service_time')
             ->get();
         // Prepare slots

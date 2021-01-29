@@ -15,7 +15,7 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->morphs('scheduleable');
+            $table->morphs('schedulable');
             $table->tinyInteger('mon')->default(1);
             $table->time('mon_start')->default('00:00');
             $table->time('mon_stop')->default('00:00');

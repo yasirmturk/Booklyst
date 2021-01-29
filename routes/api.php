@@ -95,8 +95,12 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('{productOrService}', 'WishController@removeFromWish')->name('removeFromWish');
     });
     // Booking
-    Route::name('booking.')->prefix('booking')->group(function () {
+    Route::name('booking.')->prefix('bookings')->group(function () {
         Route::get('', 'BookingController@index')->name('index');
         Route::post('book', 'BookingController@book')->name('book');
+    });
+    // Order
+    Route::name('order.')->prefix('orders')->group(function () {
+        Route::get('', 'OrderController@index')->name('index');
     });
 });
