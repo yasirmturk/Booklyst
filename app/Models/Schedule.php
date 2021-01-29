@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Schedule extends Model
 {
     use SoftDeletes;
 
-    /* Fillable */
+    /**
+     * {@inheritdoc}
+     */
     protected $fillable = [
         'mon', 'mon_start', 'mon_stop',
         'tue', 'tue_start', 'tue_stop',
@@ -21,32 +24,42 @@ class Schedule extends Model
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $hidden = [
-        'id', 'scheduleable_type', 'scheduleable_id',
+        'id', 'schedulable_type', 'schedulable_id',
         'created_at', 'updated_at', 'deleted_at',
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $casts = [
         'mon' => 'boolean',
+        'mon_start' => 'datetime:H:i',
+        'mon_stop' => 'datetime:H:i',
         'tue' => 'boolean',
+        'tue_start' => 'datetime:H:i',
+        'tue_stop' => 'datetime:H:i',
         'wed' => 'boolean',
+        'wed_start' => 'datetime:H:i',
+        'wed_stop' => 'datetime:H:i',
         'thu' => 'boolean',
+        'thu_start' => 'datetime:H:i',
+        'thu_stop' => 'datetime:H:i',
         'fri' => 'boolean',
+        'fri_start' => 'datetime:H:i',
+        'fri_stop' => 'datetime:H:i',
         'sat' => 'boolean',
+        'sat_start' => 'datetime:H:i',
+        'sat_stop' => 'datetime:H:i',
         'sun' => 'boolean',
+        'sun_start' => 'datetime:H:i',
+        'sun_stop' => 'datetime:H:i',
     ];
 
     /**
-     * Rules
+     * Validation rules
      * @return array
      */
     protected static function rules()
@@ -79,7 +92,7 @@ class Schedule extends Model
     /**
      * Get the owning scheduleable model.
      */
-    public function scheduleable()
+    public function scheduleable(): MorphTo
     {
         return $this->morphTo();
     }

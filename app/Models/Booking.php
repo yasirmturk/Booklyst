@@ -9,10 +9,9 @@ class Booking extends Model
     const STATUS_BOOKED = 'BOOKED';
     const STATUS_INPROGRESS = 'INPROGRESS';
     const STATUS_COMPLETED = 'COMPLETED';
+
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $fillable = [
         'user_id', 'service_id', 'service_time', 'amount', 'status', 'is_paid', 'is_cancelled'
@@ -38,19 +37,19 @@ class Booking extends Model
 
     /**
      * Get associated Service
-     * @return \App\Models\User
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get associated Service
      * @return \App\Models\Service
      */
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+
+    /**
+     * Get associated Order
+     * @return \App\Models\Order
+     */
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }

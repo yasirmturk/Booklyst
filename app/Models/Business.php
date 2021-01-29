@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Schedulable;
 use Illuminate\Database\Eloquent\Model;
 use Rinvex\Addresses\Traits\Addressable;
 
 class Business extends Model
 {
-    use Addressable;
+    use Addressable, Schedulable;
 
     const TYPE_HOME = 'HOME';
     const TYPE_SHOP = 'SHOP';
@@ -112,13 +113,5 @@ class Business extends Model
     public function products()
     {
         return $this->hasMany(Product::class);
-    }
-
-    /**
-     * Get the schedule.
-     */
-    public function schedule()
-    {
-        return $this->morphOne(Schedule::class, 'scheduleable');
     }
 }

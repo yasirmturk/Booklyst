@@ -25,7 +25,8 @@ class BusinessController extends Controller
         }
         $business->users()->save($user);
         $business->categories()->attach($request->categories);
-        $business->save();
+        $business->schedule()->create([]);
+        $business->refresh();
         return $business;
     }
 
