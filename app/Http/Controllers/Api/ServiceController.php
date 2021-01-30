@@ -25,7 +25,9 @@ class ServiceController extends Controller
 
     public function getSchedule(Request $request, Service $service)
     {
-        return $service->schedule ?? $service->business->schedule;
+        return $service->schedule
+            ?? $service->business->schedule
+            ?? response(['message' => 'No Schedule found'], 404);
     }
 
     public function getBookings(Request $request, Service $service, $date = null)
@@ -55,6 +57,9 @@ class ServiceController extends Controller
         $date = $this->validateDate($date);
         // Service schedule
         $schedule = $service->schedule ?? $service->business->schedule;
+        if (!$schedule) {
+            return response(['message' => 'No Schedule found'], 404);
+        }
         $day = strtolower($date->format('D'));
         $isOpen = $schedule[$day];
         $opening = $schedule[$day . '_start'];
