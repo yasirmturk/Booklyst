@@ -23,7 +23,7 @@ class Booking extends Model
      * @var array
      */
     protected $hidden = [
-        'id', 'created_at', 'updated_at',
+        'created_at', 'updated_at',
     ];
 
     /**
@@ -33,6 +33,9 @@ class Booking extends Model
      */
     protected $casts = [
         'service_time' => 'datetime',
+        'amount' => 'double',
+        'is_paid' => 'boolean',
+        'is_cancelled' => 'boolean',
     ];
 
     /**

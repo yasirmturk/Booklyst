@@ -140,7 +140,8 @@ class BusinessController extends Controller
 
     public function getSchedule(Request $request, Business $business)
     {
-        return $business->schedule;
+        return $business->schedule
+            ?? response(['message' => 'No Schedule found'], 404);
     }
 
     /**
