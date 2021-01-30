@@ -59,35 +59,33 @@ class Schedule extends Model
     ];
 
     /**
-     * Validation rules
-     * @return array
+     * The default rules that the model will validate against.
+     *
+     * @var array
      */
-    protected static function rules()
-    {
-        return [
-            'mon' => 'boolean',
-            'mon_start' => 'date_format:H:i',
-            'mon_stop' => 'date_format:H:i',
-            'tue' => 'boolean',
-            'tue_start' => 'date_format:H:i',
-            'tue_stop' => 'date_format:H:i',
-            'wed' => 'boolean',
-            'wed_start' => 'date_format:H:i',
-            'wed_stop' => 'date_format:H:i',
-            'thu' => 'boolean',
-            'thu_start' => 'date_format:H:i',
-            'thu_stop' => 'date_format:H:i',
-            'fri' => 'boolean',
-            'fri_start' => 'date_format:H:i',
-            'fri_stop' => 'date_format:H:i',
-            'sat' => 'boolean',
-            'sat_start' => 'date_format:H:i',
-            'sat_stop' => 'date_format:H:i',
-            'sun' => 'boolean',
-            'sun_start' => 'date_format:H:i',
-            'sun_stop' => 'date_format:H:i',
-        ];
-    }
+    public static $rules = [
+        'mon' => 'boolean',
+        'mon_start' => 'date_format:H:i',
+        'mon_stop' => 'date_format:H:i',
+        'tue' => 'boolean',
+        'tue_start' => 'date_format:H:i',
+        'tue_stop' => 'date_format:H:i',
+        'wed' => 'boolean',
+        'wed_start' => 'date_format:H:i',
+        'wed_stop' => 'date_format:H:i',
+        'thu' => 'boolean',
+        'thu_start' => 'date_format:H:i',
+        'thu_stop' => 'date_format:H:i',
+        'fri' => 'boolean',
+        'fri_start' => 'date_format:H:i',
+        'fri_stop' => 'date_format:H:i',
+        'sat' => 'boolean',
+        'sat_start' => 'date_format:H:i',
+        'sat_stop' => 'date_format:H:i',
+        'sun' => 'boolean',
+        'sun_start' => 'date_format:H:i',
+        'sun_stop' => 'date_format:H:i',
+    ];
 
     /**
      * Get the owning scheduleable model.

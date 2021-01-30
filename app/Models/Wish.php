@@ -21,16 +21,6 @@ class Wish extends Model
     ];
 
     /**
-     * The default rules that the model will validate against.
-     *
-     * @var array
-     */
-    protected $rules = [
-        'wishable_id' => 'required|integer',
-        'wishable_type' => 'required|string|strip_tags|max:150',
-    ];
-
-    /**
      * Get associated User.
      * @return \App\Models\User
      */
