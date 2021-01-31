@@ -23,8 +23,8 @@ class UserController extends Controller
     public function current(Request $request)
     {
         $user = $request->user();
-        // $customer = $user->createOrGetStripeCustomer();
-        $customer = $user->updateStripeCustomer();
+        $customer = $user->createOrGetStripeCustomer();
+        // $customer = $user->updateStripeCustomer();
         $paymentMethods = $user->paymentMethods();
         $user->updateDefaultPaymentMethodFromStripe();
         $paymentMethod = $user->defaultPaymentMethod();
@@ -45,7 +45,8 @@ class UserController extends Controller
      */
     public function stripe(Request $request)
     {
-        $customer = $request->user()->createOrGetStripeCustomer();
+        $user = $request->user();
+        $customer = $user->createOrGetStripeCustomer();
         $params = Cashier::stripeOptions();
         $key = EphemeralKey::create(
             ['customer' => $customer->id],
@@ -74,7 +75,7 @@ class UserController extends Controller
     public function provider(Request $request)
     {
         $customer = $request->user()->createOrGetStripeCustomer();
-        $providerPriceId = env('PROVIDER_PRICE_ID', false);
+        $providerPriceId = config('stripe.subscriptions.provider');
         $params = Cashier::stripeOptions();
         $intent = PaymentIntent::create([
             ['customer' => $customer->id, 'price' => $providerPriceId],

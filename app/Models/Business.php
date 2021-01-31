@@ -57,6 +57,22 @@ class Business extends Model
         'employee_count' => 'int'
     ];
 
+    /**
+     * The default rules that the model will validate against.
+     *
+     * @var array
+     */
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'is_service' => 'required|boolean',
+        'is_product' => 'required|boolean',
+        'type' => 'required|in:' . self::TYPE_HOME . ',' . self::TYPE_SHOP . ',' . self::TYPE_MOBILE,
+        'employee_count' => 'integer',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|min:7|max:15',
+        'categories' => 'required|array|min:1'
+    ];
+
     public function dp($appendingPath = '')
     {
         $image = $this->images->first();

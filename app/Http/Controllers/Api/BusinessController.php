@@ -18,7 +18,7 @@ class BusinessController extends Controller
     public function register(Request $request)
     {
         $user = $request->user();
-        $data = $this->validateBusiness($request);
+        $data = $request->validate(Business::$rules);
         $business = Business::create($data);
         if ($request->has('description')) {
             $business->description = $request->description;
@@ -50,8 +50,7 @@ class BusinessController extends Controller
     public function update(Request $request, Business $business)
     {
         $user = $request->user();
-        $data = $this->validateBusiness($request);
-        // $business = Business::findOrFail($id);
+        $data = $request->validate(Business::$rules);
         $business->update($data);
         $business->categories()->sync($request->categories);
         // $business->categories()->syncWithoutDetaching($request->categories);
@@ -100,8 +99,7 @@ class BusinessController extends Controller
     public function addService(Request $request, Business $business)
     {
         $user = $request->user();
-        // $business = Business::findOrFail($id);
-        $data = $this->validateService($request);
+        $data = $request->validate(Service::$rules);
         $data['business_id'] = $business->id;
         $service = Service::create($data);
         $business->services()->save($service);
@@ -119,8 +117,7 @@ class BusinessController extends Controller
     public function addProduct(Request $request, Business $business)
     {
         $user = $request->user();
-        // $business = Business::findOrFail($id);
-        $data = $this->validateProduct($request);
+        $data = $request->validate(Product::$rules);
         $data['business_id'] = $business->id;
         $product = Product::create($data);
         if ($request->has('description')) {
@@ -153,7 +150,7 @@ class BusinessController extends Controller
      */
     public function addSchedule(Request $request, Business $business)
     {
-        $data = $request->validate(Schedule::rules());
+        $data = $request->validate(Schedule::$rules);
         $business->schedule()->delete();
         $business->schedule()->create($data);
         $business->refresh();
@@ -165,38 +162,5 @@ class BusinessController extends Controller
         $business->schedule()->delete();
         $business->refresh();
         return $business;
-    }
-
-    private function validateService(Request $request)
-    {
-        return $request->validate([
-            'name' => 'required|string|max:255',
-            'duration' => 'required|min:1',
-            'price' => 'required|min:0',
-            'discount' => 'integer|min:0|max:100'
-        ]);
-    }
-
-    private function validateProduct(Request $request)
-    {
-        return $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|min:0',
-            'discount' => 'integer|min:0|max:100'
-        ]);
-    }
-
-    private function validateBusiness(Request $request)
-    {
-        return $request->validate([
-            'name' => 'required|string|max:255',
-            'is_service' => 'required|boolean',
-            'is_product' => 'required|boolean',
-            'type' => 'required|in:' . implode(',', Business::$types),
-            'employee_count' => 'integer',
-            'address' => 'required|string|max:255',
-            'phone' => 'required|string|min:7|max:15',
-            'categories' => 'required|array|min:1'
-        ]);
     }
 }

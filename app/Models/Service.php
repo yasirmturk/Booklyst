@@ -28,6 +28,18 @@ class Service extends Model
     ];
 
     /**
+     * The default rules that the model will validate against.
+     *
+     * @var array
+     */
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'duration' => 'required|min:1',
+        'price' => 'required|min:0',
+        'discount' => 'integer|min:0|max:100'
+    ];
+
+    /**
      * Get associated Business
      * @return \App\Models\Business
      */

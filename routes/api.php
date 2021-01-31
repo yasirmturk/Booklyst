@@ -45,6 +45,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', 'AuthController@logout')->name('logout');
     // Management
     Route::apiResource('users', 'UserController')->middleware('can:admin');
+    // Subscription
+    Route::post('subscribe/provider', 'SubscriptionController@provider');
     // Business
     Route::model('business', Business::class);
     Route::name('business.')->prefix('businesses')->group(function () {
