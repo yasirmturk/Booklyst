@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('', 'AdminController@index')->name('index');
+// Dashboard
+Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 // Users
 Route::resource('users', 'UserController')->only(['index', 'store', 'destroy']);
 Route::model('user', User::class);
@@ -25,6 +27,8 @@ Route::resource('businesses.products', 'BusinessProductController')->shallow()->
 Route::resource('businesses.services', 'BusinessServiceController')->shallow()->only(['index', 'show']);
 Route::resource('products', 'ProductController')->only(['index', 'store', 'destroy']);
 Route::resource('services', 'ServiceController')->only(['index', 'store', 'destroy']);
+Route::resource('bookings', 'BookingController')->only(['index',]);
+Route::resource('orders', 'OrderController')->only(['index',]);
 // Settings
 Route::name('settings.')->prefix('settings')->group(function () {
     Route::resource('categories', 'CategoryController')->only(['index', 'store', 'destroy']);
