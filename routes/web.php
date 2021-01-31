@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,19 @@ Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 // User Home
 Route::get('home', 'HomeController@index')->middleware('auth')->name('home');
+// Stripe
+Route::get('billing', function (Request $request) {
+    $user = $request->user();
+    $stripeCustomer = $user->createOrGetStripeCustomer();
+    // $url = $request->user()->billingPortalUrl(route('home'));
+    return $user->redirectToBillingPortal(route('home'));
+});
+Route::get('payment', function (Request $request) {
+    $user = $request->user();
+    return view('payment-methods', [
+        'intent' => $user->createSetupIntent()
+    ]);
+})->name('payment-methods');
 // User Developer
 Route::get('developer', 'DeveloperController@index')->name('developer')->middleware('auth');
 // Admin reset
