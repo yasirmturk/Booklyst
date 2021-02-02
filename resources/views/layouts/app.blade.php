@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +20,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -33,7 +35,11 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @auth
+                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('stripe.billing') }}">Billing Portal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('stripe.payment-methods') }}">Payment Methods</a></li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -55,6 +61,15 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                @can('admin')
+                                <a class="dropdown-item" href="{{ route('admin.index') }}">Admin Panel</a>
+                                <a class="dropdown-item" href="{{ route('reset') }}">Reset Cache</a>
+                                <a class="dropdown-item" href="{{ route('ping') }}">Ping</a>
+                                <a class="dropdown-item" href="{{ route('routes') }}">All Routes</a>
+                                <div class="dropdown-divider"></div>
+                                @endcan
+                                <a class="dropdown-item" href="{{ route('developer') }}">Developer Center</a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
@@ -70,16 +85,32 @@
                 </div>
             </div>
         </nav>
-
-        @if ($errors->any())
-        <!--@error('feedback')-->
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $errors->first() }}</strong>
-            <!-- <strong>{{ $message }}</strong> -->
-        </span>
-        <!-- @enderror -->
-        @endif
-        @yield('content')
+        <!-- Content Wrapper. Contains page content -->
+        <main>
+            <!-- Content Header (Page header) -->
+            <div class="container-fluid">
+                @if ($errors->any())
+                <!--@error('feedback')-->
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first() }}</strong>
+                    <!-- <strong>{{ $message }}</strong> -->
+                </span>
+                <!-- @enderror -->
+                @endif
+            </div><!-- /.container-fluid -->
+            <!-- /.content-header -->
+            <!-- Main content -->
+            @yield('content')
+        </main>
+        <!-- Footer -->
+        <footer class="container">
+            <strong>Copyright &copy; 1985-2021 <a href="https://www.yasirmturk.com">Yasir Turk</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 3.0.5
+            </div>
+        </footer>
     </div>
 </body>
+
 </html>
