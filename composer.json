@@ -22,7 +22,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "rinvex/laravel-addresses": "dev-develop"
+        "rinvex/laravel-addresses": "dev-php73"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
