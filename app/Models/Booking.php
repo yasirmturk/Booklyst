@@ -27,6 +27,11 @@ class Booking extends Model
     ];
 
     /**
+     * Also expand
+     */
+    protected $with = ['service'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array

@@ -68,9 +68,19 @@ class Business extends Model
         'is_product' => 'required|boolean',
         'type' => 'required|in:' . self::TYPE_HOME . ',' . self::TYPE_SHOP . ',' . self::TYPE_MOBILE,
         'employee_count' => 'integer',
-        'address' => 'required|string|max:255',
         'phone' => 'required|string|min:7|max:15',
-        'categories' => 'required|array|min:1'
+        'latitude' => 'required|numeric|between:-90,90',
+        'longitude' => 'required|numeric|between:-180,180',
+        'categories' => 'required|array|min:1',
+    ];
+
+    public static $rulesAddress = [
+        'label' => 'nullable|string|strip_tags|max:150',
+        'name' => 'nullable|string|strip_tags|max:150',
+        'city' => 'nullable|string|strip_tags|max:150',
+        'postal_code' => 'nullable|string|strip_tags|max:150',
+        'latitude' => 'required|numeric|between:-90,90',
+        'longitude' => 'required|numeric|between:-180,180',
     ];
 
     public function dp($appendingPath = '')
