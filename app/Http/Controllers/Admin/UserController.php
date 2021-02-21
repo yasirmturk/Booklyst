@@ -25,9 +25,10 @@ class UserController extends RegisterController
      */
     public function index(Request $request)
     {
+        $page_title = 'Users';
+        $page_description = 'Users overview';
         $users = User::orderBy('id', 'DESC')->get();
-        return view('admin.user')
-            ->with(compact('users', $users));
+        return view('admin.user')->with(compact('users', 'page_title', 'page_description'));
     }
 
     /**

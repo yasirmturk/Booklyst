@@ -23,6 +23,12 @@ class BusinessController extends Controller
         if ($request->has('description')) {
             $business->description = $request->description;
         }
+        $address = [
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ];
+        $address['given_name'] = $user->name ?? '';
+        $this->addAddressToBusiness($address, $business);
         $business->users()->save($user);
         $business->categories()->attach($request->categories);
         $business->schedule()->create([]);
@@ -57,6 +63,27 @@ class BusinessController extends Controller
         $business->save();
         $business->categories = $business->categories;
         return $business;
+    }
+
+    public function addAddress(Request $request, Business $business)
+    {
+        $user = $request->user();
+        $address = $request->validate(Business::$rulesAddress);
+        $address['given_name'] = $request->name ?? $user->name ?? '';
+        $this->addAddressToBusiness($address, $business);
+        $business->refresh();
+        return $business;
+    }
+
+    private function addAddressToBusiness($address, Business $business)
+    {
+        $address['family_name'] = '';
+        $address['country_code'] = 'gb';
+        $address['is_primary'] = true;
+        $address['is_billing'] = true;
+        $address['is_shipping'] = true;
+
+        $business->addresses()->create($address);
     }
 
     /**

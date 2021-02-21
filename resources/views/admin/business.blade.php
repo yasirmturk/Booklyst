@@ -2,7 +2,13 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 card">
+            <div class="card-header">
+                <h3 class="card-title">Tools:</h3>
+                <div class="card-tools">
+                    <a href="#" data-toggle="modal" data-target="#modal-add">Add New</a>
+                </div>
+            </div>
             <ul class="list-group list-group-flush">
                 @foreach($businesses as $business)
                 <li class="list-group-item">
@@ -57,6 +63,19 @@
                 </li>
                 @endforeach
             </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Register new Business</h4>
+            </div>
+            <form method="POST" action="{{ route('admin.businesses.store') }}">
+                @csrf
+                <div class="modal-body"></div>
         </div>
     </div>
 </div>

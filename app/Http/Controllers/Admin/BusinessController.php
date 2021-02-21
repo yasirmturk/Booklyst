@@ -15,8 +15,31 @@ class BusinessController extends Controller
      */
     public function index(Request $request)
     {
+        $page_title = 'Businesses';
+        $page_description = 'Businesses overview';
         $businesses = Business::orderBy('id', 'DESC')->get();
-        return view('admin.business')->with(compact('businesses', $businesses));
+        return view('admin.business')->with(compact('businesses', 'page_title', 'page_description'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Business  $business
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Business $business)
+    {
     }
 
     /**

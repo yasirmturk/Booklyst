@@ -54,6 +54,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('{business}', 'BusinessController@find')->name('find');
         Route::post('', 'BusinessController@register')->name('register');
         Route::put('{business}', 'BusinessController@update')->name('update');
+        Route::post('{business}/addresses', 'BusinessController@addAddress')->name('addAddress');
         Route::post('{business}/images', 'BusinessController@addImage')->name('addImage');
         Route::delete('{business}/images', 'BusinessController@removeImage')->name('removeImage');
         Route::post('{business}/services', 'BusinessController@addService')->name('addService');
