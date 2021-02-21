@@ -2,79 +2,76 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Users</h3>
-                    <div class="card-tools">
-                        <a href="#" data-toggle="modal" data-target="#modal-add">Add New</a>
-                    </div>
+        <div class="col-12 card">
+            <div class="card-header">
+                <h3 class="card-title">Tools:</h3>
+                <div class="card-tools">
+                    <a href="#" data-toggle="modal" data-target="#modal-add">Add New</a>
                 </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        @foreach ($users as $user)
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-1">
-                                    <img src="{{ $user->dp('/images/s/') ?? asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" class="img-rounded img-size-64" title="User Picture" />
-                                </div>
-                                <div class="col-9">
-                                    <h5>{{ $user->name }}
-                                        <small>{{ $user->email }}
-                                            @if ($e = $user->email_verified_at) <i title="Verified" class="fas fa-check-circle text-success"></i> @endif
-                                        </small>
-                                    </h5>
-                                    <p>
-                                        @if ($user->isProvider()) <span class="badge bg-olive">Provider</span> @endif
-                                        @if ($user->stripe_id) <i class="fab fa-lg fa-cc-stripe text-info"></i> @endif
-                                        @if ($card = $user->card_last_four)
-                                        <span class="badge badge-info">
-                                            @if ($cc = $user->card_brand) <i class="fab fa-lg fa-cc-{{$cc}}"></i> @endif
-                                            {{$card}}
-                                        </span>
-                                        @endif
-                                    </p>
-                                    <p>
-                                        <a class="btn btn-app">
-                                            <span class="badge bg-olive">{{ $user->socialAccounts()->count() }}</span>
-                                            <i class="fas fa-user-plus"></i>Social Accounts
-                                        </a>
-                                        <a class="btn btn-app">
-                                            <span class="badge bg-olive">{{ $user->wishlist()->count() }}</span>
-                                            <i class="fas fa-star"></i>Wishlist
-                                        </a>
-                                        <a class="btn btn-app">
-                                            <span class="badge bg-olive">{{ 0 }}</span>
-                                            <i class="fas fa-inbox"></i>Orders
-                                        </a>
-                                        <a class="btn btn-app">
-                                            <span class="badge bg-olive">{{ $user->bookings()->count() }}</span>
-                                            <i class="fas fa-calendar-check"></i>Bookings
-                                        </a>
-                                        @if ($user->isProvider())
-                                        <a class="btn btn-app" href="{{ route('admin.users.businesses.index', ['user' => $user->id]) }}">
-                                            <span class="badge bg-olive">{{ $user->businesses()->count() }}</span>
-                                            <i class="fas fa-spray-can"></i>Businesses
-                                        </a>
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="col-2">
-                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.card -->
+            <!-- /.card-header -->
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    @foreach ($users as $user)
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="{{ $user->dp('/images/s/') ?? asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" class="img-rounded img-size-64" title="User Picture" />
+                            </div>
+                            <div class="col-9">
+                                <h5>{{ $user->name }}
+                                    <small>{{ $user->email }}
+                                        @if ($e = $user->email_verified_at) <i title="Verified" class="fas fa-check-circle text-success"></i> @endif
+                                    </small>
+                                </h5>
+                                <p>
+                                    @if ($user->isProvider()) <span class="badge bg-olive">Provider</span> @endif
+                                    @if ($user->stripe_id) <i class="fab fa-lg fa-cc-stripe text-info"></i> @endif
+                                    @if ($card = $user->card_last_four)
+                                    <span class="badge badge-info">
+                                        @if ($cc = $user->card_brand) <i class="fab fa-lg fa-cc-{{$cc}}"></i> @endif
+                                        {{$card}}
+                                    </span>
+                                    @endif
+                                </p>
+                                <p>
+                                    <a class="btn btn-app">
+                                        <span class="badge bg-olive">{{ $user->socialAccounts()->count() }}</span>
+                                        <i class="fas fa-user-plus"></i>Social Accounts
+                                    </a>
+                                    <a class="btn btn-app">
+                                        <span class="badge bg-olive">{{ $user->wishlist()->count() }}</span>
+                                        <i class="fas fa-star"></i>Wishlist
+                                    </a>
+                                    <a class="btn btn-app">
+                                        <span class="badge bg-olive">{{ 0 }}</span>
+                                        <i class="fas fa-inbox"></i>Orders
+                                    </a>
+                                    <a class="btn btn-app">
+                                        <span class="badge bg-olive">{{ $user->bookings()->count() }}</span>
+                                        <i class="fas fa-calendar-check"></i>Bookings
+                                    </a>
+                                    @if ($user->isProvider())
+                                    <a class="btn btn-app" href="{{ route('admin.users.businesses.index', ['user' => $user->id]) }}">
+                                        <span class="badge bg-olive">{{ $user->businesses()->count() }}</span>
+                                        <i class="fas fa-spray-can"></i>Businesses
+                                    </a>
+                                    @endif
+                                </p>
+                            </div>
+                            <div class="col-2">
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <!-- /.card-body -->
         </div>
         <!-- /.col -->
     </div>
