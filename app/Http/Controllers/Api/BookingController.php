@@ -16,7 +16,7 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        return $user->bookings()->get();
+        return $user->bookings()->where('bookings.is_paid', true)->get();
     }
 
     /**

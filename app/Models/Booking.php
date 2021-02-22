@@ -23,7 +23,7 @@ class Booking extends Model
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'order_id', 'service_id', 'created_at', 'updated_at',
     ];
 
     /**
