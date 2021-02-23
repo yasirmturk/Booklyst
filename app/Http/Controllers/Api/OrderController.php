@@ -13,6 +13,6 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        return $user->orders()->get();
+        return $user->orders;
     }
 }

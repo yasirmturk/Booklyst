@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Booking;
 use App\Models\Business;
 use App\Models\Product;
 use App\Models\Service;
@@ -40,6 +41,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('stripe', 'UserController@stripe')->name('stripe');
         Route::post('stripe', 'UserController@addStripeMethod')->name('addStripeMethod');
         Route::get('provider', 'UserController@provider')->name('provider');
+        Route::post('stripe/payment', 'UserController@payment')->name('payment');
     });
     // Logout
     Route::post('logout', 'AuthController@logout')->name('logout');
@@ -98,9 +100,11 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('{productOrService}', 'WishController@removeFromWish')->name('removeFromWish');
     });
     // Booking
+    Route::model('booking', Booking::class);
     Route::name('booking.')->prefix('bookings')->group(function () {
         Route::get('', 'BookingController@index')->name('index');
         Route::post('book', 'BookingController@book')->name('book');
+        Route::delete('{booking}', 'BookingController@cancel')->name('cancel');
     });
     // Order
     Route::name('order.')->prefix('orders')->group(function () {
