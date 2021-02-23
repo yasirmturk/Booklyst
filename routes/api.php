@@ -41,6 +41,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('stripe', 'UserController@stripe')->name('stripe');
         Route::post('stripe', 'UserController@addStripeMethod')->name('addStripeMethod');
         Route::get('provider', 'UserController@provider')->name('provider');
+        Route::post('stripe/payment', 'UserController@payment')->name('payment');
     });
     // Logout
     Route::post('logout', 'AuthController@logout')->name('logout');
