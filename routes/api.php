@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Booking;
 use App\Models\Business;
 use App\Models\Product;
 use App\Models\Service;
@@ -98,9 +99,11 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('{productOrService}', 'WishController@removeFromWish')->name('removeFromWish');
     });
     // Booking
+    Route::model('booking', Booking::class);
     Route::name('booking.')->prefix('bookings')->group(function () {
         Route::get('', 'BookingController@index')->name('index');
         Route::post('book', 'BookingController@book')->name('book');
+        Route::delete('{booking}', 'BookingController@cancel')->name('cancel');
     });
     // Order
     Route::name('order.')->prefix('orders')->group(function () {
