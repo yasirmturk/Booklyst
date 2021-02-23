@@ -16,11 +16,11 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        return $user->bookings()->get();
+        return $user->bookings()->where('bookings.is_paid', true)->get();
     }
 
     /**
-     *
+     * Book the requested service for user
      */
     public function book(Request $request)
     {
@@ -45,5 +45,22 @@ class BookingController extends Controller
         $order->bookings()->save($booking);
         $order->refresh();
         return $order;
+    }
+
+    /**
+     * Cancel the booking for user
+     */
+    public function cancel(Request $request, Booking $booking)
+    {
+        $user = $request->user();
+        $order = $booking->order;
+        $booking->delete();
+        if ($order->bookings()->count() > 0) {
+            $order->refresh();
+            return [$order];
+        } else {
+            $order->delete();
+            return $user->orderss;
+        }
     }
 }

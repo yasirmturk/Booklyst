@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\Wish;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class WishController extends Controller
 {
@@ -49,7 +50,7 @@ class WishController extends Controller
         } else if ($productOrService == 'product') {
             $this->findWishForProduct($productOrServiceId, $user->id)->delete();
         }
-        return;
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 
     private function findWishForService(int $id, int $userId)

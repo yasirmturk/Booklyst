@@ -77,10 +77,35 @@ class UserController extends Controller
         $customer = $request->user()->createOrGetStripeCustomer();
         $providerPriceId = config('stripe.subscriptions.provider');
         $params = Cashier::stripeOptions();
-        $intent = PaymentIntent::create([
+        $intent = PaymentIntent::create(
             ['customer' => $customer->id, 'price' => $providerPriceId],
             $params
+        );
+        $client_secret = $intent->client_secret;
+        return $client_secret;
+    }
+
+    /**
+     * Charge the payment for user
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function payment(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric',
         ]);
+        $user = $request->user();
+        $customer = $request->user()->createOrGetStripeCustomer();
+        $params = Cashier::stripeOptions();
+        $intent = PaymentIntent::create(
+            [
+                'customer' => $customer->id,
+                'amount' => $request->amount,
+                'currency' => $user->preferredCurrency()
+            ],
+            $params
+        );
         $client_secret = $intent->client_secret;
         return $client_secret;
     }

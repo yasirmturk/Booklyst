@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 class ServiceController extends Controller
@@ -58,12 +59,15 @@ class ServiceController extends Controller
         // Service schedule
         $schedule = $service->schedule ?? $service->business->schedule;
         if (!$schedule) {
-            return response(['message' => 'No Schedule found'], 404);
+            return response(['message' => 'No Schedule found'], Response::HTTP_NOT_FOUND);
         }
         $day = strtolower($date->format('D'));
         $isOpen = $schedule[$day];
         $opening = $schedule[$day . '_start'];
         $closing = $schedule[$day . '_stop'];
+        if ($opening == $closing) {
+            $closing = "23:59:59";
+        }
         $durationInM = CarbonInterval::minutes($service->duration);
         // Service bookings
         $bookings = $service->bookings()
