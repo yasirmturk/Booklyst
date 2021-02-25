@@ -34,4 +34,9 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function settings(Request $request)
+    {
+        return view('settings');
+    }
 }
