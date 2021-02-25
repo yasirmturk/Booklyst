@@ -13,28 +13,21 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
-    <div id="app" class="wrapper">
+<body>
+    <div id="app">
         <!-- Header -->
         @include('layouts.header')
         <!-- Sidebar -->
         @include('layouts.sidebar')
         <!-- Content Wrapper. Contains page content -->
-        <main class="content-wrapper">
+        <main>
             <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6"></div>
-                        <div class="col-sm-6"></div>
-                    </div>
-                    <!-- Errors -->
-                    @include('components.errors')
-                </div><!-- /.container-fluid -->
-            </section>
-            <!-- /.content-header -->
+            <div class="container-fluid">
+                <!-- Errors -->
+                @include('components.errors')
+            </div><!-- /.container-fluid -->
             <!-- Main content -->
-            <section class="content">
+            <section class="container">
                 @yield('content')
             </section>
         </main>
