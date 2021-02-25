@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Wish extends Model
 {
+    use BelongsToUser;
+
     /**
      * {@inheritdoc}
      */
@@ -19,15 +21,6 @@ class Wish extends Model
         'wishable_id' => 'integer',
         'wishable_type' => 'string',
     ];
-
-    /**
-     * Get associated User.
-     * @return \App\Models\User
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     /**
      * Get the owner model of the wish.

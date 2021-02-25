@@ -37,6 +37,8 @@ class HomeController extends Controller
 
     public function settings(Request $request)
     {
-        return view('settings');
+        $user = $request->user();
+        $bankAccount = $user->bankAccounts()->first();
+        return view('settings')->with(compact($bankAccount));
     }
 }
