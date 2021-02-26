@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar elevation-4 sidebar-dark-navy">
     <!-- Brand Logo -->
-    <a href="{{ route('admin.index') }}" class="brand-link">
+    <a href="/" class="brand-link">
         <img src="{{ asset('images/vendor/admin-lte/dist/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span>
     </a>
