@@ -22,10 +22,13 @@
         <!-- Content Wrapper. Contains page content -->
         <main>
             <!-- Content Header (Page header) -->
-            <div class="container-fluid">
-                <!-- Errors -->
-                @include('components.errors')
-            </div><!-- /.container-fluid -->
+            <section class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6"></div>
+                    <!-- Errors -->
+                    @include('components.flash')
+                </div>
+            </section><!-- /.container-fluid -->
             <!-- Main content -->
             <section class="container">
                 @yield('content')
