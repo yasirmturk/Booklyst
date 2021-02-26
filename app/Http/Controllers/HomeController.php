@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BankAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,12 +34,5 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         return view('home');
-    }
-
-    public function settings(Request $request)
-    {
-        $user = $request->user();
-        $bankAccount = $user->bankAccounts()->first();
-        return view('settings')->with(compact($bankAccount));
     }
 }

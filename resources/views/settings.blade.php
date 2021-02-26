@@ -18,7 +18,7 @@
                 <div class="col-9">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade" role="tabpanel" id="tab-Content" aria-labelledby="tab-services">...</div>
-                        @include('components.bank')
+                        @include('components.bank', ['bankAccount' => $bankAccount ])
                     </div>
                 </div>
             </div>
