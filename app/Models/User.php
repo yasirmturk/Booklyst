@@ -14,6 +14,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, Notifiable, Billable;
+    use HasBankAccounts;
 
     /**
      * The attributes that are mass assignable.
@@ -198,5 +199,20 @@ class User extends Authenticatable implements MustVerifyEmail
             return $appendingPath . $image->filename;
         }
         return null;
+    }
+}
+
+/**
+ * Belongs to user
+ */
+trait BelongsToUser
+{
+    /**
+     * Get associated User
+     * @return \App\Models\User
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    use BelongsToUser;
+
     /**
      * {@inheritdoc}
      */
@@ -42,14 +44,5 @@ class Order extends Model
     public function bookings()
     {
         return $this->hasMany(Booking::class);
-    }
-
-    /**
-     * Get associated User
-     * @return \App\Models\User
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

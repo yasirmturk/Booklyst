@@ -34,17 +34,22 @@ class AuthServiceProvider extends ServiceProvider
 
     private function registerGates()
     {
-        Gate::define('super-admin', function($user) {
+        Gate::define('sadmin', function ($user) {
             return $user->hasRole(Permissions::ROLE_SUPER_ADMIN);
         });
 
-        Gate::define('admin', function($user) {
-            return $user->hasRole(Permissions::ROLE_ADMIN);
+        Gate::define('admin', function ($user) {
+            return $user->hasRole(Permissions::ROLE_SUPER_ADMIN) || $user->hasRole(Permissions::ROLE_ADMIN);
+        });
+
+        Gate::define('provider', function ($user) {
+            return $user->hasRole(Permissions::ROLE_PROVIDER);
         });
     }
 
-    private function preparePassport() {
-        Passport::routes();//null, ['prefix' => 'api/oauth']
+    private function preparePassport()
+    {
+        Passport::routes(); //null, ['prefix' => 'api/oauth']
 
         // Passport::personalAccessClientId(config('passport.personal_access_client.id'));
 

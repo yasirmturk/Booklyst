@@ -33,6 +33,8 @@ Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCall
 Route::middleware('auth')->group(function () {
     // User Home
     Route::get('home', 'HomeController@index')->name('home');
+    Route::get('settings', 'SettingsController@index')->name('settings');
+    Route::post('settings/update', 'SettingsController@update')->name('settings.update');
     // Stripe
     Route::name('stripe.')->prefix('stripe')->group(function () {
         Route::get('billing', 'StripeController@billing')->name('billing');

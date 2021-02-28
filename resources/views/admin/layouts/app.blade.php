@@ -31,7 +31,7 @@
                                 <small>{{ $page_description ?? 'Page description' }}</small>
                             </h1>
                         </div><!-- /.col -->
-                        @include('admin.layouts.flash')
+                        @include('components.flash')
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
