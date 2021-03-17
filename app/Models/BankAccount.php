@@ -30,17 +30,3 @@ class BankAccount extends Model
         'is_default' => 'boolean',
     ];
 }
-
-/**
- * Has Bank accounts
- */
-trait HasBankAccounts
-{
-    /**
-     * Get the Bank accounts.
-     */
-    public function bankAccounts()
-    {
-        return $this->hasMany(BankAccount::class);
-    }
-}
