@@ -14,32 +14,13 @@ namespace App;
 
 use App\Models\SocialAccount;
 use App\Models\User;
+use App\Traits\RegistersSocialAccounts;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\Bridge\UserRepository;
 use Laravel\Socialite\Contracts\User as SocialUser;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\AbstractProvider;
-
-trait RegistersSocialAccounts
-{
-
-    /**
-     * Handle a registration request for the application.
-     *
-     * @return \App\Models\SocialAccount
-     */
-    public function register(string $provider, string $id, User $user)
-    {
-        $account = new SocialAccount([
-            'provider_user_id' => $id,
-            'provider' => $provider
-        ]);
-        $account->user()->associate($user);
-        $account->save();
-        return $account;
-    }
-}
 
 class SocialAccountRepository extends UserRepository implements SocialAccountRepositoryInterface
 {
