@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\MailResetPassword;
 use App\Notifications\MailVerifyEmail;
 use App\Permissions;
+use App\Traits\HasBankAccounts;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
