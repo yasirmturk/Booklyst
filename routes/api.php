@@ -2,6 +2,7 @@
 
 use App\Models\Booking;
 use App\Models\Business;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Support\Facades\Route;
@@ -113,7 +114,9 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('{booking}', 'BookingController@cancel')->name('cancel');
     });
     // Order
+    Route::model('order', Order::class);
     Route::name('order.')->prefix('orders')->group(function () {
         Route::get('', 'OrderController@index')->name('index');
+        Route::post('{order}/paid', 'OrderController@paid')->name('paid');
     });
 });
