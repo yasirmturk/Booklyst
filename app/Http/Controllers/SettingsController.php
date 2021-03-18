@@ -2,28 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BankAccount;
+use App\Http\Controllers\Api\SettingsController as ApiSettingsController;
 use Illuminate\Http\Request;
 
-class SettingsController extends Controller
+class SettingsController extends ApiSettingsController
 {
     public function index(Request $request)
     {
-        $user = $request->user();
-        $bankAccount = $user->bankAccounts()->orderByDesc('id')->first();
-        return view('settings')->with(['bankAccount' => $bankAccount]);
+        $bankAccounts = parent::index($request);
+        $bankAccount = $bankAccounts->first();
+        return view('settings')->with(compact('bankAccount'));
     }
 
     public function update(Request $request)
     {
-        $data = $request->validate([
-            'country_code' => 'required',
-            'currency_code' => 'required',
-            'account_number' => 'required|numeric',
-            'sort_code' => 'required|numeric',
-        ]);
-        $user = $request->user();
-        $user->bankAccounts()->create($data);
+        $bankAccounts = parent::update($request);
         return redirect()->route('settings')
             ->with('success', 'Bank account saved successfully.');
     }

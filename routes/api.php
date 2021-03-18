@@ -38,10 +38,16 @@ Route::middleware('auth:api')->group(function () {
     Route::name('user.')->prefix('user')->group(function () {
         Route::get('', 'UserController@current');
         Route::post('', 'UserController@update')->name('update');
-        Route::get('stripe', 'UserController@stripe')->name('stripe');
-        Route::post('stripe', 'UserController@addStripeMethod')->name('addStripeMethod');
         Route::get('provider', 'UserController@provider')->name('provider');
-        Route::post('stripe/payment', 'UserController@payment')->name('payment');
+        Route::name('stripe.')->prefix('stripe')->group(function () {
+            Route::get('', 'StripeController@index');
+            Route::post('', 'StripeController@addMethod')->name('addMethod');
+            Route::post('payment', 'StripeController@payment')->name('payment');
+        });
+        Route::name('settings.')->prefix('settings')->group(function () {
+            Route::get('bank-accounts', 'SettingsController@index');
+            Route::post('bank-accounts', 'SettingsController@update')->name('update');
+        });
     });
     // Logout
     Route::post('logout', 'AuthController@logout')->name('logout');
