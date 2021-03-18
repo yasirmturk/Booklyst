@@ -21,12 +21,24 @@ class BankAccount extends Model
      * {@inheritdoc}
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'created_at', 'updated_at', 'deleted_at', 'pivot',
     ];
     /**
      * {@inheritdoc}
      */
     protected $casts = [
         'is_default' => 'boolean',
+    ];
+
+    /**
+     * The default rules that the model will validate against.
+     *
+     * @var array
+     */
+    public static $rules = [
+        'country_code' => 'required',
+        'currency_code' => 'required',
+        'account_number' => 'required|numeric',
+        'sort_code' => 'required|numeric',
     ];
 }

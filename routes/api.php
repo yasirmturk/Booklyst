@@ -2,6 +2,7 @@
 
 use App\Models\Booking;
 use App\Models\Business;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service;
 use Illuminate\Support\Facades\Route;
@@ -38,10 +39,16 @@ Route::middleware('auth:api')->group(function () {
     Route::name('user.')->prefix('user')->group(function () {
         Route::get('', 'UserController@current');
         Route::post('', 'UserController@update')->name('update');
-        Route::get('stripe', 'UserController@stripe')->name('stripe');
-        Route::post('stripe', 'UserController@addStripeMethod')->name('addStripeMethod');
         Route::get('provider', 'UserController@provider')->name('provider');
-        Route::post('stripe/payment', 'UserController@payment')->name('payment');
+        Route::name('stripe.')->prefix('stripe')->group(function () {
+            Route::get('', 'StripeController@index');
+            Route::post('', 'StripeController@addMethod')->name('addMethod');
+            Route::post('payment', 'StripeController@payment')->name('payment');
+        });
+        Route::name('settings.')->prefix('settings')->group(function () {
+            Route::get('bank-accounts', 'SettingsController@index');
+            Route::post('bank-accounts', 'SettingsController@update')->name('update');
+        });
     });
     // Logout
     Route::post('logout', 'AuthController@logout')->name('logout');
@@ -107,7 +114,9 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('{booking}', 'BookingController@cancel')->name('cancel');
     });
     // Order
+    Route::model('order', Order::class);
     Route::name('order.')->prefix('orders')->group(function () {
         Route::get('', 'OrderController@index')->name('index');
+        Route::post('{order}/paid', 'OrderController@paid')->name('paid');
     });
 });
