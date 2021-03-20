@@ -28,12 +28,9 @@ class UserController extends Controller
         $user->updateDefaultPaymentMethodFromStripe();
         $paymentMethod = $user->defaultPaymentMethod();
         return array_merge($user->toArray(), [
-            // 'customer' => $customer,
-            'subscriptions' => $customer->subscriptions->data,
-            'paymentMethods' => $paymentMethods,
-            'defaultMethod' => $paymentMethod,
             'hasPaymentMethod' => $user->hasPaymentMethod(),
-            'sources' => $customer->sources->data,
+            'subscriptions' => $customer->subscriptions->data,
+            'billingPortalURL' => $user->billingPortalUrl(route('home')),
         ]);
     }
 
