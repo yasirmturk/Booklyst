@@ -75,9 +75,10 @@ class Business extends Model
     ];
 
     public static $rulesAddress = [
-        'label' => 'nullable|string|strip_tags|max:150',
-        'name' => 'nullable|string|strip_tags|max:150',
-        'city' => 'nullable|string|strip_tags|max:150',
+        'label' => 'nullable|string|strip_tags|max:255',
+        'name' => 'nullable|string|strip_tags|max:255',
+        'street' => 'nullable|string|strip_tags|max:255',
+        'city' => 'nullable|string|strip_tags|max:255',
         'postal_code' => 'nullable|string|strip_tags|max:150',
         'latitude' => 'required|numeric|between:-90,90',
         'longitude' => 'required|numeric|between:-180,180',
