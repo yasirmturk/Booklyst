@@ -23,9 +23,10 @@ class AuthUserApi
             $response->setContent([
                 'token' => json_decode($response->getContent()),
                 'user' => array_merge($user->toArray(), [
-                    'hasPaymentMethod' => $user->hasPaymentMethod()
+                    'hasPaymentMethod' => $user->hasPaymentMethod(),
+                    'subscriptions' => $customer->subscriptions->data,
+                    'billingPortalURL' => $user->billingPortalUrl(route('home')),
                 ]),
-                'subscriptions' => $customer->subscriptions->data
             ]);
         }
         return $response;

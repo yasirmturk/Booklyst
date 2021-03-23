@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\SocialAccount;
 use App\Models\User;
-use App\RegistersSocialAccounts;
+use App\Traits\RegistersSocialAccounts;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Traits\CloudUpload;
 use Illuminate\Http\Request;
 use Laravel\Cashier\Cashier;
-use Stripe\EphemeralKey;
 use Stripe\PaymentIntent;
 
 class UserController extends Controller
@@ -29,42 +28,10 @@ class UserController extends Controller
         $user->updateDefaultPaymentMethodFromStripe();
         $paymentMethod = $user->defaultPaymentMethod();
         return array_merge($user->toArray(), [
-            // 'customer' => $customer,
-            'subscriptions' => $customer->subscriptions->data,
-            'paymentMethods' => $paymentMethods,
-            'defaultMethod' => $paymentMethod,
             'hasPaymentMethod' => $user->hasPaymentMethod(),
-            'sources' => $customer->sources->data,
+            'subscriptions' => $customer->subscriptions->data,
+            'billingPortalURL' => $user->billingPortalUrl(route('home')),
         ]);
-    }
-
-    /**
-     * Get the stripe for logged in user.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function stripe(Request $request)
-    {
-        $user = $request->user();
-        $customer = $user->createOrGetStripeCustomer();
-        $params = Cashier::stripeOptions();
-        $key = EphemeralKey::create(
-            ['customer' => $customer->id],
-            $params
-        );
-        return $key;
-    }
-
-    public function addStripeMethod(Request $request)
-    {
-        $request->validate([
-            'paymentMethod' => 'required|string',
-        ]);
-        $user = $request->user();
-        $paymentMethod = $request->paymentMethod;
-        $user->addPaymentMethod($paymentMethod);
-        $user->updateDefaultPaymentMethod($paymentMethod);
-        return $user;
     }
 
     /**
@@ -79,31 +46,6 @@ class UserController extends Controller
         $params = Cashier::stripeOptions();
         $intent = PaymentIntent::create(
             ['customer' => $customer->id, 'price' => $providerPriceId],
-            $params
-        );
-        $client_secret = $intent->client_secret;
-        return $client_secret;
-    }
-
-    /**
-     * Charge the payment for user
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function payment(Request $request)
-    {
-        $request->validate([
-            'amount' => 'required|numeric',
-        ]);
-        $user = $request->user();
-        $customer = $request->user()->createOrGetStripeCustomer();
-        $params = Cashier::stripeOptions();
-        $intent = PaymentIntent::create(
-            [
-                'customer' => $customer->id,
-                'amount' => $request->amount,
-                'currency' => $user->preferredCurrency()
-            ],
             $params
         );
         $client_secret = $intent->client_secret;

@@ -21,7 +21,7 @@ class BankAccount extends Model
      * {@inheritdoc}
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'created_at', 'updated_at', 'deleted_at', 'pivot',
     ];
     /**
      * {@inheritdoc}
@@ -29,18 +29,16 @@ class BankAccount extends Model
     protected $casts = [
         'is_default' => 'boolean',
     ];
-}
 
-/**
- * Has Bank accounts
- */
-trait HasBankAccounts
-{
     /**
-     * Get the Bank accounts.
+     * The default rules that the model will validate against.
+     *
+     * @var array
      */
-    public function bankAccounts()
-    {
-        return $this->hasMany(BankAccount::class);
-    }
+    public static $rules = [
+        'country_code' => 'required',
+        'currency_code' => 'required',
+        'account_number' => 'required|numeric',
+        'sort_code' => 'required|numeric',
+    ];
 }
